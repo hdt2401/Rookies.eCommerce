@@ -14,5 +14,10 @@ html {
 }
 
 body {
+    background: #f4f4f4;
   margin-bottom: 60px;
+}
+/* Home Page*/
+.carousel-slide .carousel-inner {
+    border-radius: .5rem;
 }
