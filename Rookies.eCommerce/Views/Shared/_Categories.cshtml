@@ -1,0 +1,18 @@
+﻿@using Rookies.eCommerce.Domain
+@model List<Category>
+
+<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+    <ul class="navbar-nav flex-grow-1 justify-content-center">
+        @{
+            foreach (var item in @Model)
+            {
+                <li class="nav-item me-2">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index" asp-route-id=@item.Id>@item.Name</a>
+                </li>
+            }
+        }
+        <li class="d-block d-sm-none">
+            <partial name="_LoginPartial" />
+        </li>
+    </ul>
+</div>

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-namespace EFProject.Domain;
+namespace Rookies.eCommerce.Domain;
 public class OrderDetail
 {
     public int Id { get; set; }
@@ -8,7 +8,7 @@ public class OrderDetail
     public int Price { get; set; }
     public int Quantity { get; set; }
 
-    public virtual Order Order { get; set; }
-    public virtual Product Product { get; set; }
+    public virtual Order? Order { get; set; }
+    public virtual Product? Product { get; set; }
 }
 

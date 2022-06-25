@@ -1,21 +1,25 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Rookies.eCommerce.Models;
+using Rookies.eCommerce.Data;
 
 namespace Rookies.eCommerce.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    public readonly EFContext _context;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, EFContext context)
     {
         _logger = logger;
+        _context = context;
     }
 
     public IActionResult Index()
     {
-        return View();
+        var categories = _context.Categories.ToList();
+        return View(categories);
     }
 
     public IActionResult Privacy()

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-namespace EFProject.Domain;
+namespace Rookies.eCommerce.Domain;
 public class Order
 {
     public int Id { get; set; }

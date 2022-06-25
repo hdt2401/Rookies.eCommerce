@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 namespace Rookies.eCommerce.Domain;
-public class Brand
+public class User
 {
     public int Id { get; set; }
     public string? Name { get; set; }
