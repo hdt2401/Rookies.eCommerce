@@ -20,7 +20,7 @@ public class EFContext : DbContext
 
     //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //{
-    //    optionsBuilder.UseSqlServer(
-    //        "Server=localhost;Database=RookiesDatabase;User Id=sa;Password=Ducthien241");
+    //  optionsBuilder.UseSqlServer(
+    //        "Server=localhost;Database=MyDatabase;User Id=sa;Password=Ducthien241");
     //}
 }
