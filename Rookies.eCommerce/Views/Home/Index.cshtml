@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Rookies.eCommerce.Domain
+@model List<Product>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -24,18 +27,25 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-    <div class="container">
-        @*@{
+    <div class="row">
+        @{
             foreach (var item in @Model)
             {
-                <div class="card">
-                    <div class="card-body">
-                        <p>@item.Name</p>
-                        <img src=@item.Image alt=@item.Name />
+                <div class="col-3 mb-2 mt-2">
+                    <div class="card">
+                      <img src="https://inantemnhan.com.vn/wp-content/uploads/2017/10/no-image.png" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">@item.Price</p>
+                        <div class="d-flex justify-content-between">
+                            <a href="#" class="btn btn-outline-primary">Xem chi tiết</a>
+                            <a href="#" class="btn btn-primary">Mua</a>
+                        </div>
+                      </div>
                     </div>
                 </div>
             }
-        }*@
+        }
     </div>
 
 </div>
