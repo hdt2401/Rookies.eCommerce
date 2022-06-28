@@ -1,31 +1,50 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Rookies.eCommerce.Data;
-using Rookies.eCommerce.Models;
+using Rookies.eCommerce.Domain;
+using System.Linq;
 
-namespace Rookies.eCommerce.Controllers;
-
-public class CategoryController : Controller
+namespace Rookies.eCommerce.Controllers
 {
-    private readonly ILogger<CategoryController> _logger;
-    public readonly EFContext _context;
-
-    public CategoryController(ILogger<CategoryController> logger, EFContext context)
+    public class CategoryController : Controller
     {
-        _logger = logger;
-        _context = context;
-    }
-
-    public IActionResult Index(int id)
-    {
-        var list = _context.Products.FirstOrDefault(m => m.Id == id);
-        return View(list);
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        public readonly EFContext _context;
+        public CategoryController(EFContext context)
+        {
+            _context = context;
+        }
+        [HttpGet("/category")]
+        public IActionResult Index()
+        {
+            var category = _context.Categories.ToList();
+            return View(category);
+        }
+        [HttpGet("/category/create")]
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost("/category/create")]
+        public IActionResult Create(string name)
+        {
+            _context.Categories.Add(new Category
+            {
+                Name = name,
+                ParentId = 1,
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now,
+            });
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        //[HttpPost("/category/delete/{id}")]
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            var category = await _context.Categories.FindAsync(id);
+            _context.Categories.Remove(category);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
-

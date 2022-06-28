@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Rookies.eCommerce.Data;
 
-public class ShopDbContext : IdentityDbContext
+public class ApplicationDbContext : IdentityDbContext
 {
-    public ShopDbContext(DbContextOptions<ShopDbContext> options)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
     }

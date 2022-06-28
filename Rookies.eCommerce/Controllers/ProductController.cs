@@ -1,27 +1,36 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using Rookies.eCommerce.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Rookies.eCommerce.Data;
 
-namespace Rookies.eCommerce.Controllers;
-
-public class ProductController : Controller
+namespace Rookies.eCommerce.Controllers
 {
-    private readonly ILogger<ProductController> _logger;
-
-    public ProductController(ILogger<ProductController> logger)
+    public class ProductController : Controller
     {
-        _logger = logger;
-    }
+        private readonly EFContext _context;
 
-    public IActionResult Product()
-    {
-        return View();
-    }
+        public ProductController(EFContext context)
+        {
+            _context = context;
+        }
+        public IActionResult Index()
+        {
+            return View();
+        }
+        public async Task<IActionResult> Detail(int id)
+        {
+            if (id == null)
+            {
+                return View("not found");
+            }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var product = await _context.Products.FirstOrDefaultAsync(m => m.Id == id);
+            if (product == null)
+            {
+                return View("not found");
+            }
+            ViewData["Title"] = product.Name;
+
+            return View(product);
+        }
     }
 }
-

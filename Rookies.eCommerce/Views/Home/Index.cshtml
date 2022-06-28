@@ -1,9 +1,12 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using Rookies.eCommerce.Domain
+@model List<Product>
+
+@{
+    ViewData["Title"] = "Trang chủ";
 }
 
 <div class="container">
-    <div id="carouselHomePage" class="carousel-slide carousel slide" data-bs-ride="carousel">
+    @*<div id="carouselHomePage" class="carousel-slide carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active" data-bs-interval="10000">
                 <img src="https://cdn.hoanghamobile.com/i/home/Uploads/2022/06/22/pre-order-vivo-x80-series-04_637914898850892460.jpg" class="d-block w-100" alt="...">
@@ -23,19 +26,38 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
-    </div>
-    <div class="container">
-        @*@{
+    </div>*@
+    <div class="row">
+        @{
             foreach (var item in @Model)
             {
-                <div class="card">
-                    <div class="card-body">
-                        <p>@item.Name</p>
-                        <img src=@item.Image alt=@item.Name />
+                <div class="col-3 mb-2 mt-2">
+                    <div class="card">
+                      <img src="https://inantemnhan.com.vn/wp-content/uploads/2017/10/no-image.png" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">@item.Price</p>
+                        <div class="d-flex justify-content-between">
+                            <a asp-area="" asp-controller="Product" asp-action="Detail" asp-route-id=@item.Id class="btn btn-outline-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-richtext" viewBox="0 0 16 16">
+                                  <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/>
+                                  <path d="M4.5 12.5A.5.5 0 0 1 5 12h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2A.5.5 0 0 1 5 10h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm1.639-3.708 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047l1.888.974V8.5a.5.5 0 0 1-.5.5H5a.5.5 0 0 1-.5-.5V8s1.54-1.274 1.639-1.208zM6.25 6a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5z"/>
+                                </svg>
+                                Xem chi tiết
+                            </a>
+                            <a asp-area="" asp-controller="Cart" asp-action="Index" asp-route-id=@item.Id class="btn btn-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                                <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"/>
+                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                </svg>
+                                Mua
+                            </a>
+                        </div>
+                      </div>
                     </div>
                 </div>
             }
-        }*@
+        }
     </div>
 
 </div>

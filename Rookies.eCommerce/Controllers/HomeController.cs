@@ -8,7 +8,7 @@ namespace Rookies.eCommerce.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    public readonly EFContext _context;
+    private readonly EFContext _context;
 
     public HomeController(ILogger<HomeController> logger, EFContext context)
     {
@@ -18,8 +18,8 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        var categories = _context.Categories.ToList();
-        return View(categories);
+        var products = _context.Products.ToList();
+        return View(products);
     }
 
     public IActionResult Privacy()
