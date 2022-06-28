@@ -1,0 +1,8 @@
+﻿@using Rookies.eCommerce.Domain
+@model List<Brand>
+@{
+    foreach (var item in @Model)
+    {
+        <div>@item.Name</div>
+    }
+}
