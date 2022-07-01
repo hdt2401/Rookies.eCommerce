@@ -21,9 +21,9 @@ namespace Rookies.eCommerce.Controllers
         {
             return Ok(await _context.Products.ToListAsync());
         }
-        // lay Product 
+        // lấy danh sách Product theo category
         [HttpGet("id")]
-        public async Task<ActionResult<List<Product>>> GetAccount(int id)
+        public async Task<ActionResult<List<Product>>> GetListAccount(int id)
         {
             var acc = await _context.Products.FindAsync(id);
             if (acc == null)
@@ -32,6 +32,7 @@ namespace Rookies.eCommerce.Controllers
             }
             return Ok(acc);
         }
+        
         // them Product
         [HttpPost]
         public async Task<ActionResult<List<Product>>> AddAccount(Product account)

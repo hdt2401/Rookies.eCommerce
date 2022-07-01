@@ -1,0 +1,73 @@
+﻿@page
+@model Rookies.eCommerce.Pages.Product.DetailModel
+
+
+<div class="rounded shadow-sm bg-white p-5">
+    <div class="row mb-4">
+        <div class="col-5">
+            <div class="card">
+                <div class="card-body">
+                    <img src="https://inantemnhan.com.vn/wp-content/uploads/2017/10/no-image.png" class="card-img-top" alt="...">
+                </div>
+            </div>
+        </div>
+        <div class="col-7">
+            <div>
+                @*<h2 class="fw-bold">@Model.Name</h2>
+                <hr />
+                <h3 class="fw-bold text-danger">Giá: @Model.Price VNĐ</h3>
+                <p>@Model.Description</p>*@
+                <div class="row">
+                    <div class="col-3">
+                        <input type="number" class="form-control" id="quantity" placeholder="Chọn số lượng" min="1">
+                    </div>
+                    <div class="col-4">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <p class="fs-4 fw-bold">Danh sách đánh giá</p>
+            <div class="feedback-list">
+                <div class="card mb-2">
+                    <div class="card-header">
+                        Quote
+                    </div>
+                    <div class="card-body">
+                        <blockquote class="blockquote mb-0">
+                            <p>A well-known quote, contained in a blockquote element.</p>
+                            <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                        </blockquote>
+                    </div>
+                    <div class="card-footer">
+                        27-06-2022
+                    </div>
+                </div>
+                <div class="card mb-2">
+                    <div class="card-header">
+                        Quote
+                    </div>
+                    <div class="card-body">
+                        <blockquote class="blockquote mb-0">
+                            <p>A well-known quote, contained in a blockquote element.</p>
+                            <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                        </blockquote>
+                    </div>
+                    <div class="card-footer">
+                        27-06-2022
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <p class="fs-4 fw-bold">Đánh giá sản phẩm</p>
+            <div class="form-floating">
+              <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+              <label for="floatingTextarea2">Bình luận</label>
+            </div>
+        </div>
+    </div>
+</div>

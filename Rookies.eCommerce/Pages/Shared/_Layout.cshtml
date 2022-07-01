@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Rookies.eCommerce.Client</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Rookies.eCommerce.Client.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="sticky-top ">
+        <nav class="navbar bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-page="Index">Rookies.eCommerce</a>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Hôm nay bạn cần gì?" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Tìm</button>
+                </form>
+                <div class="d-flex">
+                    <div class="dropdown me-2">
+                      <button class="btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Quản lý
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" asp-area="" asp-page="/Categories/Index">Tất cả danh mục</a></li>
+                        <li><a class="dropdown-item" asp-area="" asp-page="/Product/Index">Tất cả sản phẩm</a></li>
+                        <li><a class="dropdown-item" asp-area="" asp-page="/Brand/">Tất cả thương hiệu</a></li>
+                      </ul>
+                    </div>
+                    <div class="d-none d-sm-block">
+                        @*<partial name="_LoginPartial" />*@
+                    </div>
+                    <a class="btn btn-outline-warning ms-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+                            <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - Rookies.eCommerce.Client - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
