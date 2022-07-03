@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Rookies.eCommerce.Domain;
 
-namespace Rookies.eCommerce.Pages.Categories
+namespace Rookies.eCommerce.Pages.Category
 {
     public class IndexModel : PageModel
     {
