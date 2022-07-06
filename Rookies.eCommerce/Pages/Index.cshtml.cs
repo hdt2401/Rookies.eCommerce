@@ -21,9 +21,12 @@ namespace Rookies.eCommerce.Client.Pages
             var _http = new HttpClient();
             _http.BaseAddress = new Uri("https://localhost:7276");
 
-            var res = await _http.GetAsync("api/Category");
+            var resCategory = await _http.GetAsync("api/Category");
+            var resultCategory = resCategory.Content.ReadAsStringAsync().Result;
+            DBCategory = JsonConvert.DeserializeObject<List<Rookies.eCommerce.Domain.Category>>(resultCategory);
+
+            var res = await _http.GetAsync("api/Product");
             var result = res.Content.ReadAsStringAsync().Result;
-            DBCategory = JsonConvert.DeserializeObject<List<Rookies.eCommerce.Domain.Category>>(result);
             DBProduct = JsonConvert.DeserializeObject<List<Rookies.eCommerce.Domain.Product>>(result);
 
             return Page();
