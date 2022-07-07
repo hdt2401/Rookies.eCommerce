@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Rookies.eCommerce.Data;
@@ -17,6 +18,7 @@ namespace Rookies.eCommerce.Controllers
         }
         // tim toan bo Category
         [HttpGet]
+        [EnableCors("MyPolicy")]
         public async Task<ActionResult<List<Category>>> GetAll()
         {
             return Ok(await _context.Categories.ToListAsync());
