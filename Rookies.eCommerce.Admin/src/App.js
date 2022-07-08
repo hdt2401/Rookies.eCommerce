@@ -7,33 +7,17 @@ import AddCategory from './pages/Category/AddCategory'
 import HomePage from './pages/Home'
 import UpdatingHome from './pages/Home/Updating'
 import LoginPage from './pages/Login'
-import ProductPage from './pages/Product'
+import ProductPage from './pages/Product/Product'
 import AddProduct from './pages/Product/AddProduct'
 import UserPage from './pages/User'
 import UpdatingUser from './pages/User/Updating'
-
-
-import axios from "axios"
-
-const api = axios.create(
-  {
-    baseURL: `https://localhost:7276/api/brand/`,
-    // headers: { "Access-Control-Allow-Origin": "https://localhost:3000/" },
-  }
-)
-
-api.get('/').then(
-  res => {
-    console.log(res.data)
-  }
-)
 
 function App() {
   return (
     <div className='admin-container'>
       <div className="container-fluid">
-        <div className="sidebar row">
-          <div className="col-3 d-flex flex-column flex-shrink-0 justify-content-between p-3 bg-light">
+        <div className="row">
+          <div className="sidebar col-3 d-flex flex-column flex-shrink-0 justify-content-between p-3 bg-light" style={{"boxShadow":"0 0 6px 0 #ccccccc2"}}>
             <div className='sidebar-main'>
               <h1 className='fw-bold text-center text-primary'>ADMIN</h1>
               <hr />

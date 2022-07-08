@@ -1,18 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import productApi from '../../api/productApi'
+import axios from 'axios'
 
-export default function index() {
+function Product() {
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    productApi.getProductList()
+      .then((res) => {
+        console.log(res.data.data)
+        // setProducts(res.data.data)
+      })
+      .catch((e) => {
+        console.log(e);
+      })
+  }, [])
+
   return (
     <div className='product-page'>
       <div className='d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom'>
         <h2>Quản lý sản phẩm</h2>
         <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Hôm nay bạn cần gì?" aria-label="Search"/>
-            <button class="btn btn-outline-success" type="submit">Tìm</button>
+          <input class="form-control me-2" type="search" placeholder="Hôm nay bạn cần gì?" aria-label="Search" />
+          <button class="btn btn-outline-success" type="submit">Tìm</button>
         </form>
       </div>
       <div className="product-management">
-      <div className='d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3'>
+        <div className='d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3'>
           <p className='text-muted'>Tổng số sản phẩm:</p>
           <NavLink className='d-flex align-items-center btn btn-primary' to="/Brand/AddBrand">
             <span className='d-flex align-items-center justify-content-center me-2'>
@@ -35,18 +50,23 @@ export default function index() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>ID</td>
-              <td>Tên tdương hiệu</td>
-              <td>Ngày tạo</td>
-              <td>Ngày cập nhật</td>
-              <td>
-                <div class="btn-group" role="group" aria-label="options">
-                  <button type="button" class="btn btn-outline-primary">Xóa</button>
-                  <button type="button" class="btn btn-outline-primary">Cập nhật</button>
-                </div>
-              </td>
-            </tr>
+            {
+              products.map((product, index) => {
+                <tr key={index}>
+                  <td>{product.id}</td>
+                  <td>{product.Name}</td>
+                  <td>{product.Name}</td>
+                  <td>{product.Name}</td>
+                  <td>
+                    <div class="btn-group" role="group" aria-label="options">
+                      <button type="button" class="btn btn-outline-primary">Xóa</button>
+                      <button type="button" class="btn btn-outline-primary">Cập nhật</button>
+                    </div>
+                  </td>
+                </tr>
+              })
+            }
+
           </tbody>
         </table>
         <div className='page-navigation d-flex justify-content-center'>
@@ -72,3 +92,6 @@ export default function index() {
     </div>
   )
 }
+
+
+export default Product;
