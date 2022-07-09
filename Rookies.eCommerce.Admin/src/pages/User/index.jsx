@@ -5,9 +5,9 @@ export default function index() {
     <div className='user-page'>
       <div className='d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom'>
         <h2>Quản lý người dùng</h2>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Hôm nay bạn cần gì?" aria-label="Search" />
-          <button class="btn btn-outline-success" type="submit">
+        <form className="d-flex" role="search">
+          <input className="form-control me-2" type="search" placeholder="Hôm nay bạn cần gì?" aria-label="Search" />
+          <button className="btn btn-outline-success" type="submit">
             Tìm
           </button>
         </form>
@@ -30,9 +30,9 @@ export default function index() {
               <td>Ngày tạo</td>
               <td>Ngày cập nhật</td>
               <td>
-                <div class="btn-group" role="group" aria-label="options">
-                  <button type="button" class="btn btn-outline-primary">Xóa</button>
-                  <button type="button" class="btn btn-outline-primary">Cập nhật</button>
+                <div className="btn-group" role="group" aria-label="options">
+                  <button type="button" className="btn btn-outline-primary">Xóa</button>
+                  <button type="button" className="btn btn-outline-primary">Cập nhật</button>
                 </div>
               </td>
             </tr>
@@ -40,17 +40,17 @@ export default function index() {
         </table>
         <div className='page-navigation d-flex justify-content-center'>
           <nav aria-label="Page navigation">
-            <ul class="pagination">
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
+            <ul className="pagination">
+              <li className="page-item">
+                <a className="page-link" href="#" aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
                 </a>
               </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
+              <li className="page-item"><a className="page-link" href="#">1</a></li>
+              <li className="page-item"><a className="page-link" href="#">2</a></li>
+              <li className="page-item"><a className="page-link" href="#">3</a></li>
+              <li className="page-item">
+                <a className="page-link" href="#" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                 </a>
               </li>
