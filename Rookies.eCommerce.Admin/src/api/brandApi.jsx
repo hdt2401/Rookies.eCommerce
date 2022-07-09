@@ -6,14 +6,14 @@ const api = axios.create(
   }
 )
 
-api.get('/api/product').then(
+api.get('/api/Brand').then(
   res => console.log(res.data)
 )
 
-const getProductList = () => api.get('/api/product')
+const getBrandList = () => api.get('/api/Brand')
 
-console.log(getProductList)
+console.log(getBrandList)
 
 export default {
-  getProductList
+  getBrandList
 }

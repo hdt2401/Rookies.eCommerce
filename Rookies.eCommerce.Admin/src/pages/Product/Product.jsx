@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import productApi from '../../api/productApi'
-import axios from 'axios'
 
 function Product() {
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState()
 
   useEffect(() => {
     productApi.getProductList()
       .then((res) => {
-        console.log(res.data.data)
-        // setProducts(res.data.data)
+        console.log(res.data)
+        const temp = Array.from(res.data)
+        setProducts(temp)
       })
       .catch((e) => {
         console.log(e);
       })
   }, [])
-
+  console.log(typeof products);
+  console.log(products);
   return (
     <div className='product-page'>
       <div className='d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom'>
@@ -42,29 +43,27 @@ function Product() {
         <table className='table table-bordered'>
           <thead>
             <tr>
+              <th>STT</th>
               <th>ID</th>
-              <th>Tên thương hiệu</th>
-              <th>Ngày tạo</th>
-              <th>Ngày cập nhật</th>
+              <th>Tên sản phẩm</th>
+              <th>Giá</th>
+              <th>Số lượng</th>
               <th>Tùy chỉnh</th>
             </tr>
           </thead>
           <tbody>
             {
-              products.map((product, index) => {
+              (products || []).map((item, index) => (
                 <tr key={index}>
-                  <td>{product.id}</td>
-                  <td>{product.Name}</td>
-                  <td>{product.Name}</td>
-                  <td>{product.Name}</td>
-                  <td>
-                    <div class="btn-group" role="group" aria-label="options">
-                      <button type="button" class="btn btn-outline-primary">Xóa</button>
-                      <button type="button" class="btn btn-outline-primary">Cập nhật</button>
-                    </div>
-                  </td>
+                  <th>{index + 1}</th>
+                  <th>{item.id}</th>
+                  <th>{item.name}</th>
+                  <th>{item.price}</th>
+                  <th>{item.quantity}</th>
+                  <th></th>
                 </tr>
-              })
+              )
+              )
             }
 
           </tbody>
