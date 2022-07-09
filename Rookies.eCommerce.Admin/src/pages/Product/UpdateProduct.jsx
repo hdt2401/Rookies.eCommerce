@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import productApi from '../../api/productApi'
 import categoryApi from '../../api/categoryApi'
 import brandApi from '../../api/brandApi'
 
-export default function AddProduct() {
+export default function UpdateProduct() {
   const initProduct = {
     id: null,
     name: "",
@@ -22,12 +22,18 @@ export default function AddProduct() {
   const [categories, setCategories] = useState()
   const [brands, setBrands] = useState()
   const [submitted, setSubmitted] = useState(false)
+  const { id } = useParams()
   const navigate = useNavigate()
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target
-    setProduct({ ...product, [name]: value })
+  const getProduct = (id) => {
+    productApi.getProduct(id)
+      .then(res => { setProduct(res.data) })
+      .catch(e => console.log(e))
   }
+
+  useEffect(() => {
+    getProduct(id)
+  }, [id])
 
   useEffect(() => {
     categoryApi.getCategoryList()
@@ -47,29 +53,59 @@ export default function AddProduct() {
       .catch(e => console.log(e))
   }, [])
 
-  const handleSubmit = () => {
-    const data = {
-      name: product.name,
-      brandId: product.brandId,
-      categoryId: product.categoryId,
-      description: product.description,
-      detail: product.detail,
-      price: product.price,
-      promotionPrice: product.promotionPrice,
-      quantity: product.quantity,
-    }
-
-    productApi.addProduct(data)
-      .then((res) => console.log(res.data))
-      .then(navigate("/Product"))
-      .catch(e => {
-        console.log(e);
-      })
+  const handleInputChange = (event) => {
+    const { name, value } = event.target
+    setProduct({ ...product, [name]: value })
   }
+
+  const updateProduct = () => {
+    productApi.updateProduct(id, product)
+      .then(res => console.log(res.data))
+      .then(navigate("/product"))
+      .catch(e => console.log(e))
+  }
+  // useEffect(() => {
+  //   categoryApi.getCategoryList()
+  //     .then(res => {
+  //       const temp = Array.from(res.data)
+  //       setCategories(temp)
+  //     })
+  //     .catch(e => console.log(e))
+  // }, [])
+
+  // useEffect(() => {
+  //   brandApi.getBrandList()
+  //     .then(res => {
+  //       const temp = Array.from(res.data)
+  //       setBrands(temp)
+  //     })
+  //     .catch(e => console.log(e))
+  // }, [])
+
+  // const handleSubmit = () => {
+  //   const data = {
+  //     name: product.name,
+  //     brandId: product.brandId,
+  //     categoryId: product.categoryId,
+  //     description: product.description,
+  //     detail: product.detail,
+  //     price: product.price,
+  //     promotionPrice: product.promotionPrice,
+  //     quantity: product.quantity,
+  //   }
+
+  //   productApi.addProduct(data)
+  //     .then((res) => console.log(res.data))
+  //     .then(navigate("/Product"))
+  //     .catch(e => {
+  //       console.log(e);
+  //     })
+  // }
+
   return (
     <div className="product-add">
       <div className='d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom'>
-        <h2>Thêm sản phẩm</h2>
+        <h2>Cập nhật sản phẩm</h2>
       </div>
       <div>
         <form>
@@ -97,9 +133,6 @@ export default function AddProduct() {
                       <option value={item.id} key={index}>{item.name}</option>
                     ))
                   }
-                  {/* <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option> */}
                 </select>
                 <label htmlFor="floatingCategory">Chọn danh mục</label>
               </div>
@@ -117,9 +150,6 @@ export default function AddProduct() {
                       <option value={item.id} key={index}>{item.name}</option>
                     ))
                   }
-                  {/* <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option> */}
                 </select>
                 <label htmlFor="floatingBrand">Chọn hãng</label>
               </div>
@@ -184,14 +214,14 @@ export default function AddProduct() {
               />
             </div>
             <div className="col-12">
-              <button onClick={() => handleSubmit()} className="btn btn-primary d-flex align-items-center">
+              <button onClick={updateProduct} className="btn btn-primary d-flex align-items-center">
                 <span className='d-flex align-items-center justify-content-center me-2'>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-plus-square" viewBox="0 0 16 16">
                     <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
                     <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
                   </svg>
                 </span>
-                <span>Thêm sản phẩm</span>
+                <span>Cập nhật sản phẩm</span>
               </button>
             </div>
           </div>

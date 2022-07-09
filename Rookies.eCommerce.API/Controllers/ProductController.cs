@@ -23,56 +23,73 @@ namespace Rookies.eCommerce.Controllers
         {
             return Ok(await _context.Products.ToListAsync());
         }
-        // lấy danh sách Product theo category
-        [HttpGet("id")]
-        public async Task<ActionResult<List<Product>>> GetListAccount(int id)
+        // lay Product 
+        [HttpGet("{id}")]
+        [EnableCors("MyPolicy")]
+        public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            var acc = await _context.Products.FindAsync(id);
-            if (acc == null)
+            var item = await _context.Products.FindAsync(id);
+            if (item == null)
             {
                 return BadRequest("Product not found.");
             }
-            return Ok(acc);
+            return Ok(item);
         }
-        
         // them Product
         [HttpPost]
-        public async Task<ActionResult<List<Product>>> AddAccount(Product account)
+        [EnableCors("MyPolicy")]
+        public async Task<ActionResult<Product>> AddProduct([FromBody] Product item)
         {
-            _context.Products.Add(account);
+            item.CreatedDate = DateTime.Now;
+            item.UpdatedDate = DateTime.Now;
+            _context.Products.Add(item);
             await _context.SaveChangesAsync();
             return Ok(await _context.Products.ToListAsync());
         }
         // cap nhat Product
-        [HttpPut("id")]
-        public async Task<ActionResult<List<Product>>> UpdateAccount(Product request)
+        [HttpPut("{id}")]
+        [EnableCors("MyPolicy")]
+
+        public async Task<ActionResult<Product>> UpdateProduct(int id, [FromBody] Product request)
         {
-            var acc = await _context.Products.FindAsync(request.Id);
-            if (acc == null)
+            var item = await _context.Products.FindAsync(id);
+            if (item == null)
             {
                 return BadRequest("Product not found.");
             }
 
-            acc.Name = request.Name;
+            item.Name = request.Name;
+            item.Price = request.Price;
+            item.PromotionPrice = request.PromotionPrice;
+            item.Quantity = request.Quantity;
+            item.Description = request.Description;
+            item.Detail = request.Detail;
+            item.BrandId = request.BrandId;
+            item.CategoryId = request.CategoryId;
+            item.UpdatedDate = DateTime.Now;
+
+            //item.ParentId = request.ParentId;
+            _context.Entry(item).State = EntityState.Modified;
 
             await _context.SaveChangesAsync();
 
-            return Ok(await _context.Products.ToListAsync());
+            return NoContent();
         }
         // Xoa Product
-        [HttpDelete("id")]
-        public async Task<ActionResult<List<Product>>> DeleteAccount(int id)
+        [HttpDelete("{id}")]
+        [EnableCors("MyPolicy")]
+        public async Task<ActionResult> DeleteProduct(int id)
         {
-            var acc = await _context.Products.FindAsync(id);
-            if (acc == null)
+            var item = await _context.Products.FindAsync(id);
+            if (item == null)
             {
                 return BadRequest("Product not found.");
             }
-            _context.Products.Remove(acc);
+            _context.Products.Remove(item);
 
             await _context.SaveChangesAsync();
 
-            return Ok(await _context.Products.ToListAsync());
+            return NoContent();
         }
     }
 }

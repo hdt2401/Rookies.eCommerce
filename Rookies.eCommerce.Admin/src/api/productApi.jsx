@@ -6,14 +6,30 @@ const api = axios.create(
   }
 )
 
-api.get('/api/product').then(
-  res => console.log(res.data)
-)
+const getProductList = () => api.get('/api/Product')
 
-const getProductList = () => api.get('/api/product')
+const addProduct = (data) => {
+  console.log('call api',data);
+  return api.post('/api/Product', data)
+}
 
-console.log(getProductList)
+const deleteProduct = (id) => {
+  return api.delete(`/api/Product/${id}`)
+}
+
+const getProduct = (id) => {
+  return api.get(`/api/Product/${id}`)
+}
+
+const updateProduct = (id, data) => {
+  console.log(data);
+  return api.put(`/api/Product/${id}`, data)
+}
 
 export default {
-  getProductList
+  getProductList,
+  addProduct,
+  deleteProduct,
+  getProduct,
+  updateProduct
 }

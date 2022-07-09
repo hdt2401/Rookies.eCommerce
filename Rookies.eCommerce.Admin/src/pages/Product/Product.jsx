@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link, NavLink } from 'react-router-dom'
 import productApi from '../../api/productApi'
 
 function Product() {
   const [products, setProducts] = useState()
 
   useEffect(() => {
+    retrieveProduct()
+  }, [])
+
+  const retrieveProduct = () => {
     productApi.getProductList()
       .then((res) => {
         console.log(res.data)
@@ -15,9 +19,17 @@ function Product() {
       .catch((e) => {
         console.log(e);
       })
-  }, [])
-  console.log(typeof products);
-  console.log(products);
+  }
+
+  const handleDelete = (id) => {
+    productApi.deleteProduct(id)
+      .then((res) => retrieveProduct())
+      .catch((e) => {
+        console.log(e);
+      })
+  }
+  // console.log(typeof products);
+  // console.log(products);
   return (
     <div className='product-page'>
       <div className='d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom'>
@@ -60,12 +72,26 @@ function Product() {
                   <th>{item.name}</th>
                   <th>{item.price}</th>
                   <th>{item.quantity}</th>
-                  <th></th>
+                  <th>
+                    <div className="btn-group" role="group" aria-label="options">
+                      <button type="button" className="btn btn-outline-primary"
+                        onClick={
+                          () => {
+                            const confirm = window.confirm("Bạn có muốn xóa sản phẩm không?")
+                            if (confirm) {
+                              handleDelete(item.id)
+                            }
+                          }
+                        }
+                      >Xóa</button>
+                      <Link to={`/UpdateProduct/${item.id}`} type="button" className="btn btn-outline-primary">Cập nhật</Link>
+                      {/* <button type="button" className="btn btn-outline-primary">Cập nhật</button> */}
+                    </div>
+                  </th>
                 </tr>
               )
               )
             }
-
           </tbody>
         </table>
         <div className='page-navigation d-flex justify-content-center'>

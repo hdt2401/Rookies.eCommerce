@@ -10,6 +10,7 @@ import UpdatingHome from './pages/Home/Updating'
 import LoginPage from './pages/Login/Login'
 import ProductPage from './pages/Product/Product'
 import AddProduct from './pages/Product/AddProduct'
+import UpdateProduct from './pages/Product/UpdateProduct'
 import UserPage from './pages/User'
 import UpdatingUser from './pages/User/Updating'
 import UpdateBrand from './pages/Brand/UpdateBrand'
@@ -229,6 +230,7 @@ function App() {
 
               <Route path='/Product' element={<ProductPage />} />
               <Route path='/AddProduct' element={<AddProduct />} />
+              <Route path='/UpdateProduct/:id' element={<UpdateProduct />} />
 
               <Route path='/Brand' element={<BrandPage />} />
               <Route path='/AddBrand' element={<AddBrand />} />
