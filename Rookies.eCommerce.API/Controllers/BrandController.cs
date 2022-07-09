@@ -24,54 +24,64 @@ namespace Rookies.eCommerce.Controllers
             return Ok(await _context.Brands.ToListAsync());
         }
         // lay Brand 
-        [HttpGet("id")]
-        public async Task<ActionResult<List<Brand>>> GetAccount(int id)
+        [HttpGet("{id}")]
+        [EnableCors("MyPolicy")]
+        public async Task<ActionResult<Brand>> GetBrand(int id)
         {
-            var acc = await _context.Brands.FindAsync(id);
-            if (acc == null)
+            var item = await _context.Brands.FindAsync(id);
+            if (item == null)
             {
                 return BadRequest("Brand not found.");
             }
-            return Ok(acc);
+            return Ok(item);
         }
         // them Brand
         [HttpPost]
-        public async Task<ActionResult<List<Brand>>> AddAccount(Brand brand)
+        [EnableCors("MyPolicy")]
+        public async Task<ActionResult<Brand>> AddBrand([FromBody] Brand item)
         {
-            _context.Brands.Add(brand);
+            //item.CreatedDate = DateTime.Now;
+            //item.UpdatedDate = DateTime.Now;
+            _context.Brands.Add(item);
             await _context.SaveChangesAsync();
             return Ok(await _context.Brands.ToListAsync());
         }
         // cap nhat Brand
-        [HttpPut("id")]
-        public async Task<ActionResult<List<Brand>>> UpdateAccount(Brand request)
+        [HttpPut("{id}")]
+        [EnableCors("MyPolicy")]
+
+        public async Task<ActionResult<Brand>> UpdateBrand(int id, [FromBody] Brand request)
         {
-            var acc = await _context.Brands.FindAsync(request.Id);
-            if (acc == null)
+            var item = await _context.Brands.FindAsync(id);
+            if (item == null)
             {
                 return BadRequest("Brand not found.");
             }
 
-            acc.Name = request.Name;
+            //item.UpdatedDate = DateTime.Now;
+            item.Name = request.Name;
+            //item.ParentId = request.ParentId;
+            _context.Entry(item).State = EntityState.Modified;
 
             await _context.SaveChangesAsync();
 
-            return Ok(await _context.Brands.ToListAsync());
+            return NoContent();
         }
         // Xoa Brand
-        [HttpDelete("id")]
-        public async Task<ActionResult<List<Brand>>> DeleteAccount(int id)
+        [HttpDelete("{id}")]
+        [EnableCors("MyPolicy")]
+        public async Task<ActionResult> DeleteBrand(int id)
         {
-            var acc = await _context.Brands.FindAsync(id);
-            if (acc == null)
+            var item = await _context.Brands.FindAsync(id);
+            if (item == null)
             {
                 return BadRequest("Brand not found.");
             }
-            _context.Brands.Remove(acc);
+            _context.Brands.Remove(item);
 
             await _context.SaveChangesAsync();
 
-            return Ok(await _context.Brands.ToListAsync());
+            return NoContent();
         }
     }
 }

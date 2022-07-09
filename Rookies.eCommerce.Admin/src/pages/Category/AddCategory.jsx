@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import categoryApi from '../../api/categoryApi'
 
 export default function AddCategory() {
@@ -9,6 +10,7 @@ export default function AddCategory() {
   }
   const [category, setCategory] = useState(initCategory)
   const [submitted, setSubmitted] = useState(false)
+  const navigate = useNavigate()
 
   const handleInputChange = (event) => {
     const {name, value} = event.target
@@ -23,6 +25,7 @@ export default function AddCategory() {
 
     categoryApi.addCategory(data)
       .then((res)=>console.log(res.data))
+      .then(navigate("/Category"))
       .catch(e => {
         console.log(e);
       })

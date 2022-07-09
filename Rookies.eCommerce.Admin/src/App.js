@@ -12,6 +12,7 @@ import ProductPage from './pages/Product/Product'
 import AddProduct from './pages/Product/AddProduct'
 import UserPage from './pages/User'
 import UpdatingUser from './pages/User/Updating'
+import UpdateBrand from './pages/Brand/UpdateBrand'
 
 function App() {
   return (
@@ -231,6 +232,7 @@ function App() {
 
               <Route path='/Brand' element={<BrandPage />} />
               <Route path='/AddBrand' element={<AddBrand />} />
+              <Route path='/UpdateBrand/:id' element={<UpdateBrand />} />
 
               <Route path='/Category' element={<CategoryPage />} />
               <Route path='/AddCategory' element={<AddCategory />} />

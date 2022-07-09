@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Link, Outlet, Route, Routes } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import brandApi from '../../api/brandApi'
 
 function Brand() {
   const [brands, setBrands] = useState()
 
   useEffect(() => {
+    retrieveBrands()
+  }, [])
+
+  const retrieveBrands = () => {
     brandApi.getBrandList()
       .then((res) => {
         console.log(res.data)
@@ -15,7 +19,16 @@ function Brand() {
       .catch((e) => {
         console.log(e);
       })
-  }, [])
+  }
+
+  const handleDelete = (id) => {
+    brandApi.deleteBrand(id)
+      .then((res) => retrieveBrands())
+      .catch((e) => {
+        console.log(e);
+      })
+  }
+
   return (
     <div className='brand-page'>
       <div className='d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom'>
@@ -57,9 +70,18 @@ function Brand() {
                   {/* <td>{item.createdDate}</td>
                   <td>{item.updatedate}</td> */}
                   <td>
-                    <div class="btn-group" role="group" aria-label="options">
-                      <button type="button" class="btn btn-outline-primary">Xóa</button>
-                      <button type="button" class="btn btn-outline-primary">Cập nhật</button>
+                    <div className="btn-group" role="group" aria-label="options">
+                      <button type="button" className="btn btn-outline-primary"
+                        onClick={
+                          () => {
+                            const confirm = window.confirm("Bạn có muốn xóa không?")
+                            if (confirm) {
+                              handleDelete(item.id)
+                            }
+                          }
+                        }
+                      >Xóa</button>
+                      <Link to={`/UpdateBrand/${item.id}`} type="button" className="btn btn-outline-primary">Cập nhật</Link>
                     </div>
                   </td>
                 </tr>

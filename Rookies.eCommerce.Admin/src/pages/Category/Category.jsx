@@ -4,9 +4,11 @@ import categoryApi from '../../api/categoryApi'
 
 export default function Category() {
   const [categories, setCategories] = useState()
+
   useEffect(() => {
     retrieveCategories()
   }, [])
+
   const retrieveCategories = () => {
     categoryApi.getCategoryList()
       .then((res) => {
@@ -18,6 +20,7 @@ export default function Category() {
         console.log(e);
       })
   }
+
   const handleDelete = (id) => {
     categoryApi.deleteCategory(id)
       .then((res) => retrieveCategories())
@@ -25,6 +28,7 @@ export default function Category() {
         console.log(e);
       })
   }
+
   return (
     <div className='category-page'>
       <div className='d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom'>
@@ -66,8 +70,8 @@ export default function Category() {
                   <th>{item.createdDate}</th>
                   <th>{item.updatedDate}</th>
                   <th>
-                    <div class="btn-group" role="group" aria-label="options">
-                      <button type="button" class="btn btn-outline-primary"
+                    <div className="btn-group" role="group" aria-label="options">
+                      <button type="button" className="btn btn-outline-primary"
                         onClick={
                           () => {
                             const confirm = window.confirm("Bạn có muốn xóa không?")
@@ -77,8 +81,8 @@ export default function Category() {
                           }
                         }
                       >Xóa</button>
-                      <Link to={`/UpdateCategory/${item.id}`} type="button" class="btn btn-outline-primary">Cập nhật</Link>
-                      {/* <button type="button" class="btn btn-outline-primary">Cập nhật</button> */}
+                      <Link to={`/UpdateCategory/${item.id}`} type="button" className="btn btn-outline-primary">Cập nhật</Link>
+                      {/* <button type="button" className="btn btn-outline-primary">Cập nhật</button> */}
                     </div>
                   </th>
                 </tr>
