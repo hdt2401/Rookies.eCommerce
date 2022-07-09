@@ -4,8 +4,10 @@ import categoryApi from '../../api/categoryApi'
 
 export default function Category() {
   const [categories, setCategories] = useState()
-
   useEffect(() => {
+    retrieveCategories()
+  }, [])
+  const retrieveCategories = () => {
     categoryApi.getCategoryList()
       .then((res) => {
         console.log(res.data)
@@ -15,7 +17,14 @@ export default function Category() {
       .catch((e) => {
         console.log(e);
       })
-  }, [])
+  }
+  const handleDelete = (id) => {
+    categoryApi.deleteCategory(id)
+      .then((res) => retrieveCategories())
+      .catch((e) => {
+        console.log(e);
+      })
+  }
   return (
     <div className='category-page'>
       <div className='d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom'>
@@ -58,8 +67,18 @@ export default function Category() {
                   <th>{item.updatedDate}</th>
                   <th>
                     <div class="btn-group" role="group" aria-label="options">
-                      <button type="button" class="btn btn-outline-primary">Xóa</button>
-                      <button type="button" class="btn btn-outline-primary">Cập nhật</button>
+                      <button type="button" class="btn btn-outline-primary"
+                        onClick={
+                          () => {
+                            const confirm = window.confirm("Bạn có muốn xóa không?")
+                            if (confirm) {
+                              handleDelete(item.id)
+                            }
+                          }
+                        }
+                      >Xóa</button>
+                      <Link to={`/UpdateCategory/${item.id}`} type="button" class="btn btn-outline-primary">Cập nhật</Link>
+                      {/* <button type="button" class="btn btn-outline-primary">Cập nhật</button> */}
                     </div>
                   </th>
                 </tr>

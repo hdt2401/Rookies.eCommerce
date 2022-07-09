@@ -6,14 +6,34 @@ const api = axios.create(
   }
 )
 
-api.get('/api/category').then(
-  res => console.log(res.data)
-)
+// api.get('/api/category').then(
+//   res => console.log(res.data)
+// )
+// api.post('/api/category').then(
+//   res => console.log(res.data)
+// )
 
 const getCategoryList = () => api.get('/api/category')
-
-console.log(getCategoryList)
+const addCategory = (data) => {
+  console.log('call api',data);
+  return api.post('/api/category', data)
+}
+const deleteCategory = (id) => {
+  return api.delete(`/api/category/${id}`)
+}
+const getCategory = (id) => {
+  return api.get(`/api/category/${id}`)
+}
+const updateCategory = (id, data) => {
+  console.log(data);
+  return api.put(`/api/category/${id}`, data)
+}
+// console.log(getCategoryList)
 
 export default {
-  getCategoryList
+  getCategoryList,
+  addCategory,
+  deleteCategory,
+  getCategory,
+  updateCategory
 }

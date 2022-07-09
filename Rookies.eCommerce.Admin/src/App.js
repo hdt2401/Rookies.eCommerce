@@ -4,6 +4,7 @@ import BrandPage from './pages/Brand/Brand'
 import AddBrand from './pages/Brand/AddBrand'
 import CategoryPage from './pages/Category/Category'
 import AddCategory from './pages/Category/AddCategory'
+import UpdateCategory from './pages/Category/UpdateCategory'
 import HomePage from './pages/Home'
 import UpdatingHome from './pages/Home/Updating'
 import LoginPage from './pages/Login/Login'
@@ -233,6 +234,7 @@ function App() {
 
               <Route path='/Category' element={<CategoryPage />} />
               <Route path='/AddCategory' element={<AddCategory />} />
+              <Route path='/UpdateCategory/:id' element={<UpdateCategory />} />
 
               <Route path='/User' element={<UserPage />} />
               <Route path='/UpdatingUser' element={<UpdatingUser />} />

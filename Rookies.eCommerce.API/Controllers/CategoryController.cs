@@ -24,54 +24,64 @@ namespace Rookies.eCommerce.Controllers
             return Ok(await _context.Categories.ToListAsync());
         }
         // lay Category 
-        [HttpGet("id")]
-        public async Task<ActionResult<List<Category>>> GetAccount(int id)
+        [HttpGet("{id}")]
+        [EnableCors("MyPolicy")]
+        public async Task<ActionResult<Category>> GetCategory(int id)
         {
-            var acc = await _context.Categories.FindAsync(id);
-            if (acc == null)
+            var item = await _context.Categories.FindAsync(id);
+            if (item == null)
             {
                 return BadRequest("Category not found.");
             }
-            return Ok(acc);
+            return Ok(item);
         }
         // them Category
         [HttpPost]
-        public async Task<ActionResult<List<Category>>> AddAccount(Category account)
+        [EnableCors("MyPolicy")]
+        public async Task<ActionResult<Category>> AddCategory([FromBody] Category item)
         {
-            _context.Categories.Add(account);
+            item.CreatedDate = DateTime.Now;
+            item.UpdatedDate = DateTime.Now;
+            _context.Categories.Add(item);
             await _context.SaveChangesAsync();
             return Ok(await _context.Categories.ToListAsync());
         }
         // cap nhat Category
-        [HttpPut("id")]
-        public async Task<ActionResult<List<Category>>> UpdateAccount(Category request)
+        [HttpPut("{id}")]
+        [EnableCors("MyPolicy")]
+
+        public async Task<ActionResult<Category>> UpdateCategory(int id, [FromBody] Category request)
         {
-            var acc = await _context.Categories.FindAsync(request.Id);
-            if (acc == null)
+            var item = await _context.Categories.FindAsync(id);
+            if (item == null)
             {
                 return BadRequest("Category not found.");
             }
 
-            acc.Name = request.Name;
+            item.UpdatedDate=DateTime.Now;
+            item.Name = request.Name;
+            item.ParentId = request.ParentId;
+            _context.Entry(item).State = EntityState.Modified;
 
             await _context.SaveChangesAsync();
 
-            return Ok(await _context.Categories.ToListAsync());
+            return NoContent();
         }
         // Xoa Category
-        [HttpDelete("id")]
-        public async Task<ActionResult<List<Category>>> DeleteAccount(int id)
+        [HttpDelete("{id}")]
+        [EnableCors("MyPolicy")]
+        public async Task<ActionResult> DeleteCategory(int id)
         {
-            var acc = await _context.Categories.FindAsync(id);
-            if (acc == null)
+            var item = await _context.Categories.FindAsync(id);
+            if (item == null)
             {
                 return BadRequest("Category not found.");
             }
-            _context.Categories.Remove(acc);
+            _context.Categories.Remove(item);
 
             await _context.SaveChangesAsync();
 
-            return Ok(await _context.Categories.ToListAsync());
+            return NoContent();
         }
     }
 }
