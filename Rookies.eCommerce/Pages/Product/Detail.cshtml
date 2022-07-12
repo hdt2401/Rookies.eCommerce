@@ -1,4 +1,5 @@
-﻿@page
+﻿@page "{id:int?}"
+@using Rookies.eCommerce.Domain
 @model Rookies.eCommerce.Pages.Product.DetailModel
 
 
@@ -12,20 +13,32 @@
             </div>
         </div>
         <div class="col-7">
-            <div>
-                @*<h2 class="fw-bold">@Model.Name</h2>
-                <hr />
-                <h3 class="fw-bold text-danger">Giá: @Model.Price VNĐ</h3>
-                <p>@Model.Description</p>*@
-                <div class="row">
-                    <div class="col-3">
-                        <input type="number" class="form-control" id="quantity" placeholder="Chọn số lượng" min="1">
-                    </div>
-                    <div class="col-4">
-                        
-                    </div>
-                </div>
+            <h2 class="text-title">@Model.product.Name</h2>
+            <p class="fs-4 fw-bold text-danger mb-2">@Model.product.Price USD</p>
+            <p class="fs-4 fw-bold text-danger mb-2">Mô tả sản phẩm: </p>
+            <p class="text-muted" style="text-align:justify">@Model.product.Description</p>
+            @{
+                if(Model.product.Quantity == 0)
+                {
+                    <p class="text-danger fw-bold mb-2">Hết hàng</p>
+                }
+                else
+                {
+                    <p class="text-success fw-bold mb-2">Còn hàng</p>
+                }
+            }
+            
+            <div class="form-floating mb-4">
+                <select class="form-select" id="floatingSelect" aria-label="Chọn số lượng">
+                <option value=1 selected>1</option>
+                @for (int i = 1; i <= @Model.product.Quantity; i++)
+                {
+                    <option value=@i>@i</option>
+                }
+                </select>
+                <label for="floatingSelect">Chọn số lượng</label>
             </div>
+            <button type="button" class="btn btn-primary">Thêm vào giỏ hàng</button>
         </div>
     </div>
     <div class="row">
