@@ -23,6 +23,32 @@ namespace Rookies.eCommerce.Controllers
         {
             return Ok(await _context.Products.ToListAsync());
         }
+        // tim toan bo Product theo Category
+        [HttpGet("GetCategory/{id}")]
+        [EnableCors("MyPolicy")]
+        public async Task<ActionResult<List<Product>>> GetProductByCategory(int id)
+        {
+            var products = await (from product in _context.Products
+                                  join category in _context.Categories on product.CategoryId equals category.Id
+                                  where product.CategoryId == id
+                                  select product).ToListAsync();
+
+
+            return Ok(products);
+        }
+        // tim toan bo Product theo Category
+        [HttpGet("GetBrand/{id}")]
+        [EnableCors("MyPolicy")]
+        public async Task<ActionResult<List<Product>>> GetProductByBrand(int id)
+        {
+            var products = await (from product in _context.Products
+                                  join brand in _context.Brands on product.BrandId equals brand.Id
+                                  where product.BrandId == id
+                                  select product).ToListAsync();
+
+
+            return Ok(products);
+        }
         // lay Product 
         [HttpGet("{id}")]
         [EnableCors("MyPolicy")]
