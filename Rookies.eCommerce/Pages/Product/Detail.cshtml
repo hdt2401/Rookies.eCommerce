@@ -18,7 +18,7 @@
             <p class="fs-4 fw-bold text-danger mb-2">Mô tả sản phẩm: </p>
             <p class="text-muted" style="text-align:justify">@Model.product.Description</p>
             @{
-                if(Model.product.Quantity == 0)
+                if (Model.product.Quantity == 0)
                 {
                     <p class="text-danger fw-bold mb-2">Hết hàng</p>
                 }
@@ -27,14 +27,14 @@
                     <p class="text-success fw-bold mb-2">Còn hàng</p>
                 }
             }
-            
+
             <div class="form-floating mb-4">
                 <select class="form-select" id="floatingSelect" aria-label="Chọn số lượng">
-                <option value=1 selected>1</option>
-                @for (int i = 1; i <= @Model.product.Quantity; i++)
-                {
-                    <option value=@i>@i</option>
-                }
+                    <option value=1 selected>1</option>
+                    @for (int i = 1; i <= @Model.product.Quantity; i++)
+                    {
+                        <option value=@i>@i</option>
+                    }
                 </select>
                 <label for="floatingSelect">Chọn số lượng</label>
             </div>
@@ -45,31 +45,35 @@
         <div class="col-6">
             <p class="fs-4 fw-bold">Danh sách đánh giá</p>
             @{
-                foreach (var item in Model.feedbacks)
-                {                    
-                    <div class="card mb-2">
-                        <div class="card-header">
-                            Đánh giá
-                        </div>
-                        <div class="card-body">
-                            <blockquote class="blockquote mb-0">
+                if (Model.feedbacks.Count > 0)
+                {
+                    foreach (var item in Model.feedbacks)
+                    {
+                        <div class="card mb-2">
+                            <div class="card-header">
+                                Đánh giá
+                            </div>
+                            <div class="card-body">
                                 <p>@item.Comment</p>
-                                <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                            </blockquote>
+                            </div>
+                            <div class="card-footer">
+                                @item.CreatedDate
+                            </div>
                         </div>
-                        <div class="card-footer">
-                            @item.CreatedDate
-                        </div>
-                    </div>
+                    }
                 }
-            }            
+                else
+                {
+                    <p>Chưa có đánh giá cho sản phẩm này!</p>
+                }
+
+            }
         </div>
         <div class="col-6">
             <form method="post" asp-route-id="@Model.product.Id" asp-page="Detail">
                 <p class="fs-4 fw-bold">Đánh giá sản phẩm</p>
-                <div class="form-group">
-                  <textarea class="form-control" placeholder="Leave a comment here" style="height: 100px" name="comment"></textarea>
-                  
+                <div class="form-group mb-4">
+                    <textarea class="form-control" placeholder="Leave a comment here" style="height: 100px" name="comment"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
             </form>

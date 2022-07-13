@@ -38,45 +38,47 @@ namespace Rookies.eCommerce.API.Controllers
         {
             item.CreatedDate = DateTime.Now;
             item.UpdatedDate = DateTime.Now;
+            item.Status = true;
+            item.ProductId = id;
             _context.Feedbacks.Add(item);
             await _context.SaveChangesAsync();
             return Ok(await _context.Feedbacks.ToListAsync());
         }
-        // cap nhat Feedback
-        [HttpPut("{id}")]
-        [EnableCors("MyPolicy")]
+        //// cap nhat Feedback
+        //[HttpPut("{id}")]
+        //[EnableCors("MyPolicy")]
 
-        public async Task<ActionResult<Feedback>> UpdateFeedback(int id, [FromBody] Feedback request)
-        {
-            var item = await _context.Feedbacks.FindAsync(id);
-            if (item == null)
-            {
-                return BadRequest("Feedback not found.");
-            }
+        //public async Task<ActionResult<Feedback>> UpdateFeedback(int id, [FromBody] Feedback request)
+        //{
+        //    var item = await _context.Feedbacks.FindAsync(id);
+        //    if (item == null)
+        //    {
+        //        return BadRequest("Feedback not found.");
+        //    }
 
-            item.UpdatedDate = DateTime.Now;
-            item.Comment = request.Comment;
-            _context.Entry(item).State = EntityState.Modified;
+        //    item.UpdatedDate = DateTime.Now;
+        //    item.Comment = request.Comment;
+        //    _context.Entry(item).State = EntityState.Modified;
 
-            await _context.SaveChangesAsync();
+        //    await _context.SaveChangesAsync();
 
-            return NoContent();
-        }
-        // Xoa Feedback
-        [HttpDelete("{id}")]
-        [EnableCors("MyPolicy")]
-        public async Task<ActionResult> DeleteFeedback(int id)
-        {
-            var item = await _context.Feedbacks.FindAsync(id);
-            if (item == null)
-            {
-                return BadRequest("Feedback not found.");
-            }
-            _context.Feedbacks.Remove(item);
+        //    return NoContent();
+        //}
+        //// Xoa Feedback
+        //[HttpDelete("{id}")]
+        //[EnableCors("MyPolicy")]
+        //public async Task<ActionResult> DeleteFeedback(int id)
+        //{
+        //    var item = await _context.Feedbacks.FindAsync(id);
+        //    if (item == null)
+        //    {
+        //        return BadRequest("Feedback not found.");
+        //    }
+        //    _context.Feedbacks.Remove(item);
 
-            await _context.SaveChangesAsync();
+        //    await _context.SaveChangesAsync();
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
     }
 }

@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using Rookies.eCommerce.Domain;
+using System.Text;
+using System.Linq;
 
 namespace Rookies.eCommerce.Pages.Product
 {
@@ -9,11 +11,10 @@ namespace Rookies.eCommerce.Pages.Product
     {
         private readonly HttpClient _http;
         private readonly ILogger<DetailModel> _logger;
-        public Rookies.eCommerce.Domain.Product product = new Rookies.eCommerce.Domain.Product();
+        public Rookies.eCommerce.Domain.Product product { get; set; }
         public List<Rookies.eCommerce.Domain.Feedback> feedbacks = new List<Rookies.eCommerce.Domain.Feedback>();
         [BindProperty]
         public Feedback feedback { get; set; }
-        //public Rookies.eCommerce.Domain.Feedback feedback = new Rookies.eCommerce.Domain.Feedback();
 
         public DetailModel(ILogger<DetailModel> logger)
         {
@@ -30,21 +31,33 @@ namespace Rookies.eCommerce.Pages.Product
 
             var resFeedback = await _http.GetAsync($"api/Feedback/GetFeedback/{id}");
             var resultFeedback = resFeedback.Content.ReadAsStringAsync().Result;
-            feedbacks = JsonConvert.DeserializeObject<List<Rookies.eCommerce.Domain.Feedback>>(resultFeedback);
+            feedbacks = JsonConvert.DeserializeObject<List<Feedback>>(resultFeedback);
+            feedbacks.Reverse();
 
             return Page();
         }
         public async Task<ActionResult> OnPost(int id)
         {
-            var fb = feedback;
-            //var _http = new HttpClient();
-            //_http.BaseAddress = new Uri("https://localhost:7276");
 
-            //var resFeedback = await _http.GetAsync($"api/Feedback/{id}");
-            //var resultFeedback = resFeedback.Content.ReadAsStringAsync().Result;
-            //feedbacks = JsonConvert.DeserializeObject<List<Rookies.eCommerce.Domain.Feedback>>(resultFeedback);
+            var _http = new HttpClient();
+            _http.BaseAddress = new Uri("https://localhost:7276");
+
+            feedback.ProductId = id;
+            var json = JsonConvert.SerializeObject(feedback);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await _http.PostAsync($"api/Feedback/", data);
+
+
+            var res = await _http.GetAsync($"api/Product/{id}");
+            var result = res.Content.ReadAsStringAsync().Result;
+            product = JsonConvert.DeserializeObject<Rookies.eCommerce.Domain.Product>(result);
+
+            var resFeedback = await _http.GetAsync($"api/Feedback/GetFeedback/{id}");
+            var resultFeedback = resFeedback.Content.ReadAsStringAsync().Result;
+            feedbacks = JsonConvert.DeserializeObject<List<Feedback>>(resultFeedback);
+            feedbacks.Reverse();
 
             return Page();
-        }
+}
     }
 }
