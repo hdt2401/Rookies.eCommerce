@@ -65,11 +65,14 @@
             }            
         </div>
         <div class="col-6">
-            <p class="fs-4 fw-bold">Đánh giá sản phẩm</p>
-            <div class="form-floating">
-              <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-              <label for="floatingTextarea2">Bình luận</label>
-            </div>
+            <form method="post" asp-route-id="@Model.product.Id" asp-page="Detail">
+                <p class="fs-4 fw-bold">Đánh giá sản phẩm</p>
+                <div class="form-group">
+                  <textarea class="form-control" placeholder="Leave a comment here" style="height: 100px" name="comment"></textarea>
+                  
+                </div>
+                <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
+            </form>
         </div>
     </div>
 </div>

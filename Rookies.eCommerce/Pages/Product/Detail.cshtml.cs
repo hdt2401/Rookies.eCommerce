@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
+using Rookies.eCommerce.Domain;
 
 namespace Rookies.eCommerce.Pages.Product
 {
@@ -10,6 +11,9 @@ namespace Rookies.eCommerce.Pages.Product
         private readonly ILogger<DetailModel> _logger;
         public Rookies.eCommerce.Domain.Product product = new Rookies.eCommerce.Domain.Product();
         public List<Rookies.eCommerce.Domain.Feedback> feedbacks = new List<Rookies.eCommerce.Domain.Feedback>();
+        [BindProperty]
+        public Feedback feedback { get; set; }
+        //public Rookies.eCommerce.Domain.Feedback feedback = new Rookies.eCommerce.Domain.Feedback();
 
         public DetailModel(ILogger<DetailModel> logger)
         {
@@ -27,6 +31,18 @@ namespace Rookies.eCommerce.Pages.Product
             var resFeedback = await _http.GetAsync($"api/Feedback/GetFeedback/{id}");
             var resultFeedback = resFeedback.Content.ReadAsStringAsync().Result;
             feedbacks = JsonConvert.DeserializeObject<List<Rookies.eCommerce.Domain.Feedback>>(resultFeedback);
+
+            return Page();
+        }
+        public async Task<ActionResult> OnPost(int id)
+        {
+            var fb = feedback;
+            //var _http = new HttpClient();
+            //_http.BaseAddress = new Uri("https://localhost:7276");
+
+            //var resFeedback = await _http.GetAsync($"api/Feedback/{id}");
+            //var resultFeedback = resFeedback.Content.ReadAsStringAsync().Result;
+            //feedbacks = JsonConvert.DeserializeObject<List<Rookies.eCommerce.Domain.Feedback>>(resultFeedback);
 
             return Page();
         }
