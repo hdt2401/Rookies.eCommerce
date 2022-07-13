@@ -13,9 +13,8 @@ public class Product
     public DateTime CreatedDate { get; set; }
     public DateTime UpdatedDate { get; set; }
     public string? Image { get; set; }
-    public string? ImageList { get; set; }
-
     public virtual Brand? Brand { get; set; }
     public virtual Category? Category { get; set; }
+    public virtual List<Feedback> Feedbacks { get; set; } = new List<Feedback>();
 }
 

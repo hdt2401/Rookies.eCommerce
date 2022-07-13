@@ -44,36 +44,25 @@
     <div class="row">
         <div class="col-6">
             <p class="fs-4 fw-bold">Danh sách đánh giá</p>
-            <div class="feedback-list">
-                <div class="card mb-2">
-                    <div class="card-header">
-                        Quote
+            @{
+                foreach (var item in Model.feedbacks)
+                {                    
+                    <div class="card mb-2">
+                        <div class="card-header">
+                            Đánh giá
+                        </div>
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0">
+                                <p>@item.Comment</p>
+                                <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                            </blockquote>
+                        </div>
+                        <div class="card-footer">
+                            @item.CreatedDate
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <blockquote class="blockquote mb-0">
-                            <p>A well-known quote, contained in a blockquote element.</p>
-                            <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                        </blockquote>
-                    </div>
-                    <div class="card-footer">
-                        27-06-2022
-                    </div>
-                </div>
-                <div class="card mb-2">
-                    <div class="card-header">
-                        Quote
-                    </div>
-                    <div class="card-body">
-                        <blockquote class="blockquote mb-0">
-                            <p>A well-known quote, contained in a blockquote element.</p>
-                            <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                        </blockquote>
-                    </div>
-                    <div class="card-footer">
-                        27-06-2022
-                    </div>
-                </div>
-            </div>
+                }
+            }            
         </div>
         <div class="col-6">
             <p class="fs-4 fw-bold">Đánh giá sản phẩm</p>
