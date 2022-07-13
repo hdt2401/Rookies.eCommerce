@@ -26,14 +26,11 @@ namespace Rookies.eCommerce.Controllers
         // tim toan bo Product theo Category
         [HttpGet("GetCategory/{id}")]
         [EnableCors("MyPolicy")]
-        public async Task<ActionResult<List<Product>>> GetProductByCategory(int id)
+        public async Task<ActionResult<List<Product>>> GetProductByCategory(int? id)
         {
             var products = await (from product in _context.Products
-                                  join category in _context.Categories on product.CategoryId equals category.Id
                                   where product.CategoryId == id
                                   select product).ToListAsync();
-
-
             return Ok(products);
         }
         // tim toan bo Product theo Category
