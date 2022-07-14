@@ -1,9 +1,10 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using Rookies.eCommerce.Domain;
 using System.Text;
 using System.Linq;
+using System.Net.Http.Headers;
 
 namespace Rookies.eCommerce.Pages.Product
 {
@@ -42,10 +43,19 @@ namespace Rookies.eCommerce.Pages.Product
             var _http = new HttpClient();
             _http.BaseAddress = new Uri("https://localhost:7276");
 
-            feedback.ProductId = id;
-            var json = JsonConvert.SerializeObject(feedback);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await _http.PostAsync($"api/Feedback/", data);
+            var content = new Feedback()
+            {
+                ProductId = id,
+                CustomerId = 1,
+                Comment = feedback.Comment,
+                Rating = 5,
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now,
+                Status = true,
+                Product = null
+            };
+
+            var response = await _http.PostAsJsonAsync("api/Feedback/", content);
 
 
             var res = await _http.GetAsync($"api/Product/{id}");

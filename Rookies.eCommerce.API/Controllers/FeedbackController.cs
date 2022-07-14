@@ -34,15 +34,14 @@ namespace Rookies.eCommerce.API.Controllers
         // them Feedback
         [HttpPost]
         [EnableCors("MyPolicy")]
-        public async Task<ActionResult<Feedback>> AddFeedback(int id, [FromBody] Feedback item)
+        public async Task<ActionResult<Feedback>> AddFeedback([FromBody] Feedback item)
         {
             item.CreatedDate = DateTime.Now;
             item.UpdatedDate = DateTime.Now;
             item.Status = true;
-            item.ProductId = id;
             _context.Feedbacks.Add(item);
             await _context.SaveChangesAsync();
-            return Ok(await _context.Feedbacks.ToListAsync());
+            return Ok(item);
         }
         //// cap nhat Feedback
         //[HttpPut("{id}")]
