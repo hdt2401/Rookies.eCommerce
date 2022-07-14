@@ -48,7 +48,7 @@ namespace Rookies.eCommerce.Pages.Product
                 ProductId = id,
                 CustomerId = 1,
                 Comment = feedback.Comment,
-                Rating = 5,
+                Rating = feedback.Rating,
                 CreatedDate = DateTime.Now,
                 UpdatedDate = DateTime.Now,
                 Status = true,
