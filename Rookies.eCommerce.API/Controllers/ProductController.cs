@@ -106,28 +106,41 @@ namespace Rookies.eCommerce.Controllers
         [HttpPut("{id}")]
         [EnableCors("MyPolicy")]
 
-        public async Task<ActionResult<Product>> UpdateProduct(int id, [FromBody] Product request)
+        public async Task<ActionResult> UpdateProduct(int id, [FromForm] Product request, IFormFile uploadFile)
         {
             var item = await _context.Products.FindAsync(id);
+
             if (item == null)
             {
                 return BadRequest("Product not found.");
             }
 
-            item.Name = request.Name;
-            item.Price = request.Price;
-            item.PromotionPrice = request.PromotionPrice;
-            item.Quantity = request.Quantity;
-            item.Description = request.Description;
-            item.Detail = request.Detail;
-            item.BrandId = request.BrandId;
-            item.CategoryId = request.CategoryId;
-            item.UpdatedDate = DateTime.Now;
+            if (uploadFile != null && uploadFile.Length > 0)
+            {
+                var fileName = Path.GetFileName(uploadFile.FileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot/images/", fileName);
 
-            //item.ParentId = request.ParentId;
-            _context.Entry(item).State = EntityState.Modified;
 
-            await _context.SaveChangesAsync();
+                item.BrandId = request.BrandId;
+                item.CategoryId = request.CategoryId;
+                item.Name = request.Name;
+                item.Description = request.Description;
+                item.Detail = request.Detail;
+                item.Price = request.Price;
+                item.PromotionPrice = request.PromotionPrice;
+                item.Quantity = request.Quantity;
+                item.Image = fileName;
+                item.UpdatedDate = DateTime.Now;
+
+                //_context.Add(request);
+                _context.Entry(item).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await uploadFile.CopyToAsync(fileStream);
+                }
+            }
 
             return NoContent();
         }

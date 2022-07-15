@@ -8,10 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\**" />
     <Compile Remove="Pages\Brand\**" />
+    <Compile Remove="Upload\**" />
+    <Content Remove="Controllers\**" />
     <Content Remove="Pages\Brand\**" />
+    <Content Remove="Upload\**" />
+    <EmbeddedResource Remove="Controllers\**" />
     <EmbeddedResource Remove="Pages\Brand\**" />
+    <EmbeddedResource Remove="Upload\**" />
+    <None Remove="Controllers\**" />
     <None Remove="Pages\Brand\**" />
+    <None Remove="Upload\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,10 +55,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Upload\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\js\" />

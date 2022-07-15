@@ -16,12 +16,11 @@ export default function AddProduct() {
     promotionPrice: null,
     quantity: null,
     image: "",
-    imageList: "",
   }
   const [product, setProduct] = useState(initProduct)
   const [categories, setCategories] = useState()
   const [brands, setBrands] = useState()
-  const [submitted, setSubmitted] = useState(false)
+  const [file, setFile] = useState()
   const navigate = useNavigate()
 
   const handleInputChange = (event) => {
@@ -47,21 +46,31 @@ export default function AddProduct() {
       .catch(e => console.log(e))
   }, [])
 
-  const handleSubmit = () => {
-    const data = {
-      name: product.name,
-      brandId: product.brandId,
-      categoryId: product.categoryId,
-      description: product.description,
-      detail: product.detail,
-      price: product.price,
-      promotionPrice: product.promotionPrice,
-      quantity: product.quantity,
-    }
+  const handleImageChange = (e) => {
+    console.log(e.target.files[0]);
+    setFile(e.target.files[0]);
+  };
 
-    productApi.addProduct(data)
+  const submitForm = (e) => {
+    e.preventDefault()
+    var formData = new FormData();
+    formData.append("uploadFile", file);
+    formData.append("name", product.name)
+    formData.append("brandId", product.brandId)
+    formData.append("categoryId", product.categoryId)
+    formData.append("description", product.description)
+    formData.append("detail", product.detail)
+    formData.append("price", product.price)
+    formData.append("promotionPrice", product.promotionPrice)
+    formData.append("quantity", product.quantity)
+    formData.append("image",product.image)
+
+    for (const value of formData.values()) {
+      console.log(value);
+    }
+    //call api
+    productApi.addProduct(formData)
       .then((res) => console.log(res.data))
-      .then(navigate("/Product"))
       .catch(e => {
         console.log(e);
       })
@@ -72,7 +81,7 @@ export default function AddProduct() {
         <h2>Thêm sản phẩm</h2>
       </div>
       <div>
-        <form>
+        <form onSubmit={submitForm}>
           <div className="row">
             <div className="col-6 mb-3">
               <div className="form-floating">
@@ -179,12 +188,11 @@ export default function AddProduct() {
               <label htmlFor="formFileMain" className="form-label">Ảnh đại diện sản phẩm</label>
               <input className="form-control" type="file" id="formFileMain"
                 name='image'
-                value={product.image}
-                onChange={handleInputChange}
+                onChange={handleImageChange}
               />
             </div>
             <div className="col-12">
-              <button onClick={() => handleSubmit()} className="btn btn-primary d-flex align-items-center">
+              <button type='submit' className="btn btn-primary d-flex align-items-center">
                 <span className='d-flex align-items-center justify-content-center me-2'>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-plus-square" viewBox="0 0 16 16">
                     <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />

@@ -71,7 +71,7 @@ function Product() {
                   <th>{index + 1}</th>
                   <th>{item.id}</th>
                   <th>
-                    <img src={img+item.image} alt="" />
+                    <img src={`https://localhost:7276/api/product/${item.id}/image`} alt={item.name} />
                   </th>
                   <th>{item.name}</th>
                   <th>{item.price}</th>
