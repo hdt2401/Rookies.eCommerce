@@ -32,4 +32,8 @@
     <ProjectReference Include="..\Rookies.eCommerce.Data\Rookies.eCommerce.Data.csproj" />
     <ProjectReference Include="..\Rookies.eCommerce.Domain\Rookies.eCommerce.Domain.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Upload\" />
+  </ItemGroup>
 </Project>

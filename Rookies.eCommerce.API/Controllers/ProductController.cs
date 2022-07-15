@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Rookies.eCommerce.API.Models;
 using Rookies.eCommerce.Data;
 using Rookies.eCommerce.Domain;
 
@@ -12,9 +13,11 @@ namespace Rookies.eCommerce.Controllers
     public class ProductController : ControllerBase
     {
         public readonly EFContext _context;
-        public ProductController(EFContext context)
+        public static IWebHostEnvironment _environment;
+        public ProductController(EFContext context, IWebHostEnvironment environment)
         {
             _context = context;
+            _environment = environment;
         }
         // tim toan bo Product
         [HttpGet]
@@ -52,22 +55,65 @@ namespace Rookies.eCommerce.Controllers
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
             var item = await _context.Products.FindAsync(id);
+            string path = _environment.WebRootPath + "\\Upload\\";
             if (item == null)
             {
                 return BadRequest("Product not found.");
             }
+            var filePath = path + item.Image;
+            byte[] b = System.IO.File.ReadAllBytes(filePath);
+            //item.
             return Ok(item);
         }
+      
         // them Product
         [HttpPost]
         [EnableCors("MyPolicy")]
-        public async Task<ActionResult<Product>> AddProduct([FromBody] Product item)
+        public async Task<ActionResult<Product>> AddProduct([FromForm] Product product, IFormFile uploadFile)
         {
-            item.CreatedDate = DateTime.Now;
-            item.UpdatedDate = DateTime.Now;
-            _context.Products.Add(item);
-            await _context.SaveChangesAsync();
-            return Ok(await _context.Products.ToListAsync());
+             if (uploadFile != null && uploadFile.Length > 0)
+            {
+                var fileName = Path.GetFileName(uploadFile.FileName);
+                var filePath = Path.Combine(@"D:/Rookies.eCommerce/Rookies.eCommerce/wwwroot", @"D:/Rookies.eCommerce/Rookies.eCommerce/wwwroot/images/", fileName);
+                product.Image = fileName;
+
+                _context.Add(product);
+                await _context.SaveChangesAsync();
+
+
+                using (var fileSrteam = new FileStream(filePath, FileMode.Create))
+                {
+                    await uploadFile.CopyToAsync(fileSrteam);
+                }
+                //return RedirectToAction(nameof(Index));
+            }
+            //string path = _environment.WebRootPath + "\\Upload\\";
+            //if (!Directory.Exists(path))
+            //{
+            //    Directory.CreateDirectory(path);
+            //}
+            //using (FileStream fileStream = System.IO.File.Create(path + item.File.FileName))
+            //{
+            //    item.File.CopyTo(fileStream);
+            //    fileStream.Flush();
+            //}
+
+            //var tempProduct = new Product
+            //{
+            //    Name = item.Name,
+            //    Description = item.Description,
+            //    Price = item.Price,
+            //    PromotionPrice = item.PromotionPrice,
+            //    Quantity = item.Quantity,
+            //    Image = item.File.FileName,
+            //    CategoryId = item.CategoryId,
+            //    BrandId = item.BrandId,
+            //    CreatedDate = DateTime.Now,
+            //    UpdatedDate = DateTime.Now,
+            //};
+            //_context.Products.Add(tempProduct);
+            //await _context.SaveChangesAsync();
+            return Ok(product);
         }
         // cap nhat Product
         [HttpPut("{id}")]

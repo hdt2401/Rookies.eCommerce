@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import productApi from '../../api/productApi'
-
+const img = "../../../../Rookies.eCommerce/wwwroot/images/"
 function Product() {
   const [products, setProducts] = useState()
 
@@ -57,6 +57,7 @@ function Product() {
             <tr>
               <th>STT</th>
               <th>ID</th>
+              <th>Ảnh sản phẩm</th>
               <th>Tên sản phẩm</th>
               <th>Giá</th>
               <th>Số lượng</th>
@@ -69,6 +70,9 @@ function Product() {
                 <tr key={index}>
                   <th>{index + 1}</th>
                   <th>{item.id}</th>
+                  <th>
+                    <img src={img+item.image} alt="" />
+                  </th>
                   <th>{item.name}</th>
                   <th>{item.price}</th>
                   <th>{item.quantity}</th>
