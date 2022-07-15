@@ -30,6 +30,11 @@ namespace Rookies.eCommerce.Pages.Product
             var result = res.Content.ReadAsStringAsync().Result;
             product = JsonConvert.DeserializeObject<Rookies.eCommerce.Domain.Product>(result);
 
+            
+
+            //var image = await _http.GetAsync($"api/Product/{id}/image");
+            //product.Image = image.Content.ReadAsStringAsync().Result;            
+
             var resFeedback = await _http.GetAsync($"api/Feedback/GetFeedback/{id}");
             var resultFeedback = resFeedback.Content.ReadAsStringAsync().Result;
             feedbacks = JsonConvert.DeserializeObject<List<Feedback>>(resultFeedback);
