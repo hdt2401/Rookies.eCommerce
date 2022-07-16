@@ -6,6 +6,7 @@ export default function UpdateCategory() {
   const initCategory = {
     id: null,
     name: "",
+    description: "",
     parentId: 1
   }
   const [category, setCategory] = useState(initCategory)
@@ -53,6 +54,14 @@ export default function UpdateCategory() {
               onChange={handleInputChange}
             />
             <label htmlFor="floatingName">Tên danh mục</label>
+          </div>
+          <div className="form-floating mb-3">
+            <input type="text" className="form-control" id="floatingName" placeholder="Mô tả danh mục"
+              name='description'
+              value={category.description}
+              onChange={handleInputChange}
+            />
+            <label htmlFor="floatingName">Mô tả danh mục</label>
           </div>
           <button onClick={updateCategory} className="btn btn-primary d-flex align-items-center">
             <span className='d-flex align-items-center justify-content-center me-2'>

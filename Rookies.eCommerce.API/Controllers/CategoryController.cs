@@ -58,11 +58,12 @@ namespace Rookies.eCommerce.Controllers
                 return BadRequest("Category not found.");
             }
 
-            item.UpdatedDate=DateTime.Now;
             item.Name = request.Name;
+            item.Description = request.Name;
             item.ParentId = request.ParentId;
-            _context.Entry(item).State = EntityState.Modified;
+            item.UpdatedDate=DateTime.Now;
 
+            _context.Entry(item).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             return NoContent();
