@@ -1,15 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Rookies.eCommerce.Domain;
 public class Order
 {
     public int Id { get; set; }
-    public DateTime OrderDate { get; set; }
-    public bool Status { get; set; }
-    public bool Delivered { get; set; }
-    public DateTime DeliveredDate { get; set; }
-    public int CustomerId { get; set; }
-    public int Discount { get; set; }
-
-    public virtual List<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
+    public string ShipName { get; set; }
+    public string ShipMobile { get; set; }
+    public string ShipAddress { get; set; }
+    public DateTime CreatedDate { get; set; }
+    [ForeignKey("UserId")]
+    public string UserId { get; set; }
+    public List<OrderDetail> OrderDetails { get; set; }
+    public User User { get; set; }
 }
 

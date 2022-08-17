@@ -37,8 +37,6 @@ namespace Rookies.eCommerce.API.Controllers
         public async Task<ActionResult<Feedback>> AddFeedback([FromBody] Feedback item)
         {
             item.CreatedDate = DateTime.Now;
-            item.UpdatedDate = DateTime.Now;
-            item.Status = true;
             _context.Feedbacks.Add(item);
             await _context.SaveChangesAsync();
             return Ok(item);

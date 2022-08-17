@@ -51,13 +51,9 @@ namespace Rookies.eCommerce.Pages.Product
             var content = new Feedback()
             {
                 ProductId = id,
-                CustomerId = 1,
                 Comment = feedback.Comment,
                 Rating = feedback.Rating,
-                CreatedDate = DateTime.Now,
-                UpdatedDate = DateTime.Now,
-                Status = true,
-                Product = null
+                CreatedDate = DateTime.Now
             };
 
             var response = await _http.PostAsJsonAsync("api/Feedback/", content);

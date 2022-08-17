@@ -60,7 +60,6 @@ namespace Rookies.eCommerce.Controllers
 
             item.Name = request.Name;
             item.Description = request.Name;
-            item.ParentId = request.ParentId;
             item.UpdatedDate=DateTime.Now;
 
             _context.Entry(item).State = EntityState.Modified;

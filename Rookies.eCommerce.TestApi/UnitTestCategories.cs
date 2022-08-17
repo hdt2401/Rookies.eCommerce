@@ -21,7 +21,6 @@ namespace Rookies.eCommerce.TestApi
                 {
                     Id = 1,
                     Name = "phone",
-                    ParentId = 1,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
                     Description = "dien thoai"
@@ -30,7 +29,6 @@ namespace Rookies.eCommerce.TestApi
                 {
                     Id = 2,
                     Name = "table",
-                    ParentId = 1,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
                     Description = "may tinh bang",
@@ -65,7 +63,6 @@ namespace Rookies.eCommerce.TestApi
                 {
                     Id = 1,
                     Name = "phone",
-                    ParentId = 1,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
                     Description = "dien thoai"
@@ -74,7 +71,6 @@ namespace Rookies.eCommerce.TestApi
                 {
                     Id = 2,
                     Name = "table",
-                    ParentId = 1,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
                     Description = "may tinh bang",
@@ -108,7 +104,6 @@ namespace Rookies.eCommerce.TestApi
                 {
                     Id = 1,
                     Name = "phone",
-                    ParentId = 1,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
                     Description = "dien thoai"
@@ -117,7 +112,6 @@ namespace Rookies.eCommerce.TestApi
                 {
                     Id = 2,
                     Name = "table",
-                    ParentId = 1,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
                     Description = "may tinh bang",
@@ -135,7 +129,6 @@ namespace Rookies.eCommerce.TestApi
                 {
                     Id = 3,
                     Name = "Laptop",
-                    ParentId = 1,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
                     Description = "may tinh ca nhan",
@@ -161,7 +154,6 @@ namespace Rookies.eCommerce.TestApi
                 {
                     Id = 1,
                     Name = "phone",
-                    ParentId = 1,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
                     Description = "dien thoai"
@@ -170,7 +162,6 @@ namespace Rookies.eCommerce.TestApi
                 {
                     Id = 2,
                     Name = "table",
-                    ParentId = 1,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
                     Description = "may tinh bang",
@@ -188,7 +179,6 @@ namespace Rookies.eCommerce.TestApi
                 {
                     Id = 2,
                     Name = "Laptop moi",
-                    ParentId = 1,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
                     Description = "may tinh ca nhan moi",
@@ -214,7 +204,6 @@ namespace Rookies.eCommerce.TestApi
                 {
                     Id = 1,
                     Name = "phone",
-                    ParentId = 1,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
                     Description = "dien thoai"
@@ -223,7 +212,6 @@ namespace Rookies.eCommerce.TestApi
                 {
                     Id = 2,
                     Name = "table",
-                    ParentId = 1,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
                     Description = "may tinh bang",

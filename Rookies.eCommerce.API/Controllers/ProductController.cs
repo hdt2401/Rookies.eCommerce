@@ -36,19 +36,7 @@ namespace Rookies.eCommerce.Controllers
                                   select product).ToListAsync();
             return Ok(products);
         }
-        // tim toan bo Product theo Category
-        [HttpGet("GetBrand/{id}")]
-        [EnableCors("MyPolicy")]
-        public async Task<ActionResult<List<Product>>> GetProductByBrand(int id)
-        {
-            var products = await (from product in _context.Products
-                                  join brand in _context.Brands on product.BrandId equals brand.Id
-                                  where product.BrandId == id
-                                  select product).ToListAsync();
-
-
-            return Ok(products);
-        }
+        
         // lay Product 
         [HttpGet("{id}")]
         [EnableCors("MyPolicy")]
@@ -120,12 +108,9 @@ namespace Rookies.eCommerce.Controllers
                 var fileName = Path.GetFileName(uploadFile.FileName);
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot/images/", fileName);
 
-
-                item.BrandId = request.BrandId;
                 item.CategoryId = request.CategoryId;
                 item.Name = request.Name;
                 item.Description = request.Description;
-                item.Detail = request.Detail;
                 item.Price = request.Price;
                 item.PromotionPrice = request.PromotionPrice;
                 item.Quantity = request.Quantity;
