@@ -59,8 +59,8 @@ namespace Rookies.eCommerce.Controllers
             }
 
             item.Name = request.Name;
-            item.Description = request.Name;
-            item.UpdatedDate=DateTime.Now;
+            item.Description = request.Description;
+            item.UpdatedDate = DateTime.Now;
 
             _context.Entry(item).State = EntityState.Modified;
             await _context.SaveChangesAsync();

@@ -2,16 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import productApi from '../../api/productApi'
 import categoryApi from '../../api/categoryApi'
-import brandApi from '../../api/brandApi'
+import moment from 'moment'
 
 export default function AddProduct() {
   const initProduct = {
     id: null,
     name: "",
-    brandId: null,
     categoryId: null,
     description: "",
-    detail: "",
     price: null,
     promotionPrice: null,
     quantity: null,
@@ -19,7 +17,6 @@ export default function AddProduct() {
   }
   const [product, setProduct] = useState(initProduct)
   const [categories, setCategories] = useState()
-  const [brands, setBrands] = useState()
   const [file, setFile] = useState()
   const navigate = useNavigate()
 
@@ -37,14 +34,6 @@ export default function AddProduct() {
       .catch(e => console.log(e))
   }, [])
 
-  useEffect(() => {
-    brandApi.getBrandList()
-      .then(res => {
-        const temp = Array.from(res.data)
-        setBrands(temp)
-      })
-      .catch(e => console.log(e))
-  }, [])
 
   const handleImageChange = (e) => {
     console.log(e.target.files[0]);
@@ -56,14 +45,13 @@ export default function AddProduct() {
     var formData = new FormData();
     formData.append("uploadFile", file);
     formData.append("name", product.name)
-    formData.append("brandId", product.brandId)
     formData.append("categoryId", product.categoryId)
     formData.append("description", product.description)
     formData.append("detail", product.detail)
     formData.append("price", product.price)
     formData.append("promotionPrice", product.promotionPrice)
     formData.append("quantity", product.quantity)
-    formData.append("image",product.image)
+    formData.append("image", product.image)
 
     for (const value of formData.values()) {
       console.log(value);
@@ -71,6 +59,7 @@ export default function AddProduct() {
     //call api
     productApi.addProduct(formData)
       .then((res) => console.log(res.data))
+      .then(() => navigate('/product'))
       .catch(e => {
         console.log(e);
       })
@@ -106,33 +95,11 @@ export default function AddProduct() {
                       <option value={item.id} key={index}>{item.name}</option>
                     ))
                   }
-                  {/* <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option> */}
                 </select>
                 <label htmlFor="floatingCategory">Chọn danh mục</label>
               </div>
             </div>
-            <div className="col-3 mb-3">
-              <div className="form-floating">
-                <select className="form-select" id="floatingBrand" aria-label="Chọn hãng"
-                  name='brandId'
-                  value={product.brandId}
-                  onChange={handleInputChange}
-                >
-                  <option selected>Chọn hãng</option>
-                  {
-                    (brands || []).map((item, index) => (
-                      <option value={item.id} key={index}>{item.name}</option>
-                    ))
-                  }
-                  {/* <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option> */}
-                </select>
-                <label htmlFor="floatingBrand">Chọn hãng</label>
-              </div>
-            </div>
+
             <div className="col-4">
               <div className="form-floating mb-3">
                 <input type="number" className="form-control" id="floatingPrice" placeholder="Giá tiền"
@@ -171,21 +138,11 @@ export default function AddProduct() {
                   value={product.description}
                   onChange={handleInputChange}
                 ></textarea>
-                <label htmlFor="floatingDescription">Chi tiết sản phẩm</label>
+                <label htmlFor="floatingDescription">Mô tả sản phẩm</label>
               </div>
             </div>
             <div className="col-12 mb-3">
-              <div className="form-floating">
-                <textarea className="form-control" placeholder="Mô tả" id="floatingDetail" style={{ "minHeight": "10rem" }}
-                  name='detail'
-                  value={product.detail}
-                  onChange={handleInputChange}
-                ></textarea>
-                <label htmlFor="floatingDetail">Mô tả</label>
-              </div>
-            </div>
-            <div className="col-12 mb-3">
-              <label htmlFor="formFileMain" className="form-label">Ảnh đại diện sản phẩm</label>
+              <label htmlFor="formFileMain" className="form-label">Ảnh sản phẩm</label>
               <input className="form-control" type="file" id="formFileMain"
                 name='image'
                 onChange={handleImageChange}

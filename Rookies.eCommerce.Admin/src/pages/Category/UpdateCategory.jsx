@@ -6,11 +6,10 @@ export default function UpdateCategory() {
   const initCategory = {
     id: null,
     name: "",
-    description: "",
-    parentId: 1
+    description: ""
   }
   const [category, setCategory] = useState(initCategory)
-  const [submitted, setSubmitted] = useState(false)
+  // const [submitted, setSubmitted] = useState(false)
   const { id } = useParams()
   const navigate = useNavigate()
 

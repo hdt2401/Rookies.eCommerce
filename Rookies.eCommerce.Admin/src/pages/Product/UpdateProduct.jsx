@@ -2,13 +2,11 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import productApi from '../../api/productApi'
 import categoryApi from '../../api/categoryApi'
-import brandApi from '../../api/brandApi'
 
 export default function UpdateProduct(props) {
   const initProduct = {
     id: null,
     name: "",
-    brandId: null,
     categoryId: null,
     description: "",
     detail: "",
@@ -19,7 +17,6 @@ export default function UpdateProduct(props) {
   }
   const [product, setProduct] = useState(initProduct)
   const [categories, setCategories] = useState()
-  const [brands, setBrands] = useState()
   const { id } = useParams()
   const navigate = useNavigate()
   const [file, setFile] = useState()
@@ -44,15 +41,6 @@ export default function UpdateProduct(props) {
       .catch(e => console.log(e))
   }, [])
 
-  useEffect(() => {
-    brandApi.getBrandList()
-      .then(res => {
-        const temp = Array.from(res.data)
-        setBrands(temp)
-      })
-      .catch(e => console.log(e))
-  }, [])
-
   const handleInputChange = (event) => {
     const { name, value } = event.target
     setProduct({ ...product, [name]: value })
@@ -66,18 +54,17 @@ export default function UpdateProduct(props) {
   const updateProduct = (e) => {
     e.preventDefault()
     alert("Bạn có chắc cập nhật sản phẩm hay không ?");
-    
+
     var formData = new FormData();
     formData.append("uploadFile", file);
     formData.append("name", product.name)
-    formData.append("brandId", product.brandId)
     formData.append("categoryId", product.categoryId)
     formData.append("description", product.description)
     formData.append("detail", product.detail)
     formData.append("price", product.price)
     formData.append("promotionPrice", product.promotionPrice)
     formData.append("quantity", product.quantity)
-    formData.append("image",product.image)
+    formData.append("image", product.image)
 
     productApi.updateProduct(product.id, formData)
       .then(res => console.log(res.data))
@@ -118,23 +105,6 @@ export default function UpdateProduct(props) {
                   }
                 </select>
                 <label htmlFor="floatingCategory">Chọn danh mục</label>
-              </div>
-            </div>
-            <div className="col-3 mb-3">
-              <div className="form-floating">
-                <select className="form-select" id="floatingBrand" aria-label="Chọn hãng"
-                  name='brandId'
-                  value={product.brandId}
-                  onChange={handleInputChange}
-                >
-                  <option selected>Chọn hãng</option>
-                  {
-                    (brands || []).map((item, index) => (
-                      <option value={item.id} key={index}>{item.name}</option>
-                    ))
-                  }
-                </select>
-                <label htmlFor="floatingBrand">Chọn hãng</label>
               </div>
             </div>
             <div className="col-4">

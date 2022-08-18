@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import categoryApi from '../../api/categoryApi'
+import moment from 'moment'
 
 export default function Category() {
   const [categories, setCategories] = useState()
@@ -69,8 +70,8 @@ export default function Category() {
                   <th>{item.id}</th>
                   <th>{item.name}</th>
                   <th>{item.description}</th>
-                  <th>{item.createdDate}</th>
-                  <th>{item.updatedDate}</th>
+                  <th>{moment(item.createdDate).format('DD-MM-YYYY HH:MM:SS')}</th>
+                  <th>{moment(item.updatedDate).format('DD-MM-YYYY HH:MM:SS')}</th>
                   <th>
                     <div className="btn-group" role="group" aria-label="options">
                       <button type="button" className="btn btn-outline-primary"
@@ -92,25 +93,6 @@ export default function Category() {
             }
           </tbody>
         </table>
-        <div className='page-navigation d-flex justify-content-center'>
-          <nav aria-label="Page navigation">
-            <ul className="pagination">
-              <li className="page-item">
-                <a className="page-link" href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li className="page-item"><a className="page-link" href="#">1</a></li>
-              <li className="page-item"><a className="page-link" href="#">2</a></li>
-              <li className="page-item"><a className="page-link" href="#">3</a></li>
-              <li className="page-item">
-                <a className="page-link" href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
       </div>
     </div>
   )

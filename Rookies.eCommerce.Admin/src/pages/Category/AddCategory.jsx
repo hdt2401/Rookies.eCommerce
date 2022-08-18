@@ -4,29 +4,27 @@ import categoryApi from '../../api/categoryApi'
 
 export default function AddCategory() {
   const initCategory = {
-    id:null,
-    name:"",
-    description:"",
-    parentId:1
+    id: null,
+    name: "",
+    description: ""
   }
   const [category, setCategory] = useState(initCategory)
   const [submitted, setSubmitted] = useState(false)
   const navigate = useNavigate()
 
   const handleInputChange = (event) => {
-    const {name, value} = event.target
-    setCategory({...category, [name]:value})
+    const { name, value } = event.target
+    setCategory({ ...category, [name]: value })
   }
 
   const handleSubmit = () => {
     const data = {
-      name : category.name,
-      description : category.description,
-      parentId : category.parentId
+      name: category.name,
+      description: category.description,
     }
 
     categoryApi.addCategory(data)
-      .then((res)=>console.log(res.data))
+      .then((res) => console.log(res.data))
       .then(navigate("/Category"))
       .catch(e => {
         console.log(e);
@@ -40,7 +38,7 @@ export default function AddCategory() {
       <div>
         <form>
           <div className="form-floating mb-3">
-            <input type="text" className="form-control" id="floatingName" placeholder="Tên danh mục" 
+            <input type="text" className="form-control" id="floatingName" placeholder="Tên danh mục"
               name='name'
               value={category.name}
               onChange={handleInputChange}
@@ -48,7 +46,7 @@ export default function AddCategory() {
             <label htmlFor="floatingName">Tên danh mục</label>
           </div>
           <div className="form-floating mb-3">
-            <input type="text" className="form-control" id="floatingName" placeholder="Tên danh mục" 
+            <input type="text" className="form-control" id="floatingName" placeholder="Tên danh mục"
               name='description'
               value={category.description}
               onChange={handleInputChange}

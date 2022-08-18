@@ -1,7 +1,5 @@
 import { Link, NavLink, Route, Routes } from 'react-router-dom'
 import './App.css'
-import BrandPage from './pages/Brand/Brand'
-import AddBrand from './pages/Brand/AddBrand'
 import CategoryPage from './pages/Category/Category'
 import AddCategory from './pages/Category/AddCategory'
 import UpdateCategory from './pages/Category/UpdateCategory'
@@ -13,14 +11,13 @@ import AddProduct from './pages/Product/AddProduct'
 import UpdateProduct from './pages/Product/UpdateProduct'
 import UserPage from './pages/User'
 import UpdatingUser from './pages/User/Updating'
-import UpdateBrand from './pages/Brand/UpdateBrand'
 
 function App() {
   return (
     <div className='admin-container'>
       <div className="container-fluid">
         <div className="row">
-          <div className="sidebar col-3 d-flex flex-column flex-shrink-0 justify-content-between p-3 bg-light" style={{"boxShadow":"0 0 6px 0 #ccccccc2"}}>
+          <div className="sidebar col-3 d-flex flex-column flex-shrink-0 justify-content-between p-3 bg-light" style={{ "boxShadow": "0 0 6px 0 #ccccccc2" }}>
             <div className='sidebar-main'>
               <h1 className='fw-bold text-center text-primary'>ADMIN</h1>
               <hr />
@@ -172,42 +169,6 @@ function App() {
                   </div>
                 </li>
                 {/* quan ly thuong hieu */}
-                <li>
-                  <button style={{ "width": "100%" }} className="btn btn-toggle fs-5 d-inline-flex align-items-center rounded border-0 collapsed mb-2" data-bs-toggle="collapse" data-bs-target="#brand-collapse" aria-expanded="true">
-                    <span className='d-flex align-items-center justify-content-center me-2'>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-postcard" viewBox="0 0 16 16">
-                        <path fillRule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4Zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7ZM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5ZM10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3ZM13 8h-2V6h2v2Z" />
-                      </svg>
-                    </span>
-                    Quản lý thương hiệu
-                  </button>
-                  <div className="collapse" id="brand-collapse">
-                    <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                      <li className='ms-4'>
-                        <NavLink className='nav-link fs-6 d-flex align-items-center' to="/Brand">
-                          <span className='d-flex align-items-center justify-content-center me-2'>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-file-earmark-richtext" viewBox="0 0 16 16">
-                              <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z" />
-                              <path d="M4.5 12.5A.5.5 0 0 1 5 12h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2A.5.5 0 0 1 5 10h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm1.639-3.708 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047l1.888.974V8.5a.5.5 0 0 1-.5.5H5a.5.5 0 0 1-.5-.5V8s1.54-1.274 1.639-1.208zM6.25 6a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5z" />
-                            </svg>
-                          </span>
-                          <span>Xem thương hiệu</span>
-                        </NavLink>
-                      </li>
-                      <li className='ms-4'>
-                        <NavLink className='nav-link fs-6 d-flex align-items-center' to="/AddBrand">
-                          <span className='d-flex align-items-center justify-content-center me-2'>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-file-earmark-plus" viewBox="0 0 16 16">
-                              <path d="M8 6.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 .5-.5z" />
-                              <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z" />
-                            </svg>
-                          </span>
-                          <span>Thêm thương hiệu</span>
-                        </NavLink>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
               </ul>
             </div>
             <div className="sidebar-register">
@@ -231,10 +192,6 @@ function App() {
               <Route path='/Product' element={<ProductPage />} />
               <Route path='/AddProduct' element={<AddProduct />} />
               <Route path='/UpdateProduct/:id' element={<UpdateProduct />} />
-
-              <Route path='/Brand' element={<BrandPage />} />
-              <Route path='/AddBrand' element={<AddBrand />} />
-              <Route path='/UpdateBrand/:id' element={<UpdateBrand />} />
 
               <Route path='/Category' element={<CategoryPage />} />
               <Route path='/AddCategory' element={<AddCategory />} />

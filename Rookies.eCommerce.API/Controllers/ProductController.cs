@@ -79,6 +79,9 @@ namespace Rookies.eCommerce.Controllers
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot/images/", fileName);
 
                 product.Image = fileName;
+                product.CreatedDate = DateTime.Now;
+                product.UpdatedDate = DateTime.Now;
+
                 _context.Add(product);
                 await _context.SaveChangesAsync();
 
