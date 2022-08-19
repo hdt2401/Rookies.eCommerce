@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Rookies.eCommerce.Data;
 using Rookies.eCommerce.Domain;
+using System.Security.Claims;
+
 namespace Rookies.eCommerce.API.Controllers
 {
     [Route("api/[controller]")]
@@ -11,9 +13,11 @@ namespace Rookies.eCommerce.API.Controllers
     public class FeedbackController : Controller
     {
         public readonly EFContext _context;
-        public FeedbackController(EFContext context)
+        public readonly IHttpContextAccessor _httpContext;
+        public FeedbackController(EFContext context, IHttpContextAccessor httpContext)
         {
             _context = context;
+            _httpContext = httpContext;
         }
         [HttpGet]
         [EnableCors("MyPolicy")]
@@ -36,46 +40,19 @@ namespace Rookies.eCommerce.API.Controllers
         [EnableCors("MyPolicy")]
         public async Task<ActionResult<Feedback>> AddFeedback([FromBody] Feedback item)
         {
+            var currentUser = await GetCurrentUserAsync();
+            var userId = currentUser.Id;
+            item.UserId = int.Parse(userId);
             item.CreatedDate = DateTime.Now;
             _context.Feedbacks.Add(item);
             await _context.SaveChangesAsync();
             return Ok(item);
         }
-        //// cap nhat Feedback
-        //[HttpPut("{id}")]
-        //[EnableCors("MyPolicy")]
+        private async Task<User> GetCurrentUserAsync()
+        {
+            var accountId = _httpContext.HttpContext.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+            return await _context.Users.Where(x => x.Id == accountId).FirstOrDefaultAsync();
+        }
 
-        //public async Task<ActionResult<Feedback>> UpdateFeedback(int id, [FromBody] Feedback request)
-        //{
-        //    var item = await _context.Feedbacks.FindAsync(id);
-        //    if (item == null)
-        //    {
-        //        return BadRequest("Feedback not found.");
-        //    }
-
-        //    item.UpdatedDate = DateTime.Now;
-        //    item.Comment = request.Comment;
-        //    _context.Entry(item).State = EntityState.Modified;
-
-        //    await _context.SaveChangesAsync();
-
-        //    return NoContent();
-        //}
-        //// Xoa Feedback
-        //[HttpDelete("{id}")]
-        //[EnableCors("MyPolicy")]
-        //public async Task<ActionResult> DeleteFeedback(int id)
-        //{
-        //    var item = await _context.Feedbacks.FindAsync(id);
-        //    if (item == null)
-        //    {
-        //        return BadRequest("Feedback not found.");
-        //    }
-        //    _context.Feedbacks.Remove(item);
-
-        //    await _context.SaveChangesAsync();
-
-        //    return NoContent();
-        //}
     }
 }

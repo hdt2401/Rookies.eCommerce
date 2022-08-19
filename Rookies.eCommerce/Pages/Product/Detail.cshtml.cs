@@ -5,6 +5,7 @@ using Rookies.eCommerce.Domain;
 using System.Text;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Security.Claims;
 
 namespace Rookies.eCommerce.Pages.Product
 {
@@ -12,6 +13,7 @@ namespace Rookies.eCommerce.Pages.Product
     {
         private readonly HttpClient _http;
         private readonly ILogger<DetailModel> _logger;
+        public readonly IHttpContextAccessor _httpContext;
         public Rookies.eCommerce.Domain.Product product { get; set; }
         public List<Rookies.eCommerce.Domain.Feedback> feedbacks = new List<Rookies.eCommerce.Domain.Feedback>();
         [BindProperty]
@@ -44,9 +46,9 @@ namespace Rookies.eCommerce.Pages.Product
         }
         public async Task<ActionResult> OnPost(int id)
         {
-
             var _http = new HttpClient();
             _http.BaseAddress = new Uri("https://localhost:7276");
+            var accountId = _httpContext.HttpContext.User?.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var content = new Feedback()
             {
@@ -57,7 +59,6 @@ namespace Rookies.eCommerce.Pages.Product
             };
 
             var response = await _http.PostAsJsonAsync("api/Feedback/", content);
-
 
             var res = await _http.GetAsync($"api/Product/{id}");
             var result = res.Content.ReadAsStringAsync().Result;
